@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JPG to PNG Converter – ToolNova</title>
+  <meta name="description" content="Convert JPG/JPEG images to PNG format online for free. Upload, preview, and download your converted PNG. No signup required." />
+  <link rel="canonical" href="https://toolnova.com/jpg-to-png.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JPG to PNG Converter – ToolNova" />
+  <meta property="og:description" content="Free online JPG to PNG converter. Upload your image, convert instantly, and download the PNG. Completely client-side." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolnova.com/jpg-to-png.html" />
+  <meta property="og:image" content="https://toolnova.com/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JPG to PNG Converter – ToolNova" />
+  <meta name="twitter:description" content="Convert JPG to PNG online for free. No signup, no limits." />
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "JPG to PNG Converter",
+      "description": "Convert JPG images to PNG format online for free.",
+      "url": "https://toolnova.com/jpg-to-png.html",
+      "applicationCategory": "Utility",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript"
+    }
+  </script>
+
+  <style>
+    /* ===== ToolNova base styles (same as image-resizer) ===== */
+    :root {
+      --bg-primary: #f8faff;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-input: #f0f4ff;
+      --bg-nav: rgba(255,255,255,0.80);
+      --text-primary: #0b1a33;
+      --text-secondary: #2d3a4f;
+      --text-muted: #6b7a8f;
+      --border-color: #e6edf5;
+      --shadow-sm: 0 2px 12px rgba(11,26,51,0.06);
+      --shadow-md: 0 8px 32px rgba(11,26,51,0.08);
+      --shadow-lg: 0 16px 56px rgba(11,26,51,0.10);
+      --shadow-hover: 0 20px 60px rgba(11,26,51,0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 60px;
+      --transition: 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+      --accent: #2563eb;
+      --accent-light: #3b82f6;
+      --accent-dark: #1d4ed8;
+      --accent-glow: rgba(37,99,235,0.20);
+      --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --gradient-soft: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --nav-height: 72px;
+    }
+    [data-theme="dark"] {
+      --bg-primary: #0a1628;
+      --bg-secondary: #111f3a;
+      --bg-card: #15243f;
+      --bg-input: #1a2a4a;
+      --bg-nav: rgba(10,22,40,0.88);
+      --text-primary: #f0f4ff;
+      --text-secondary: #c8d2e6;
+      --text-muted: #8a9bb5;
+      --border-color: #1e3150;
+      --shadow-sm: 0 2px 12px rgba(0,0,0,0.30);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.40);
+      --shadow-lg: 0 16px 56px rgba(0,0,0,0.50);
+      --shadow-hover: 0 20px 60px rgba(0,0,0,0.60);
+      --accent-glow: rgba(59,130,246,0.25);
+      --gradient-soft: linear-gradient(135deg, #0f2847 0%, #1a3a66 100%);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height:1.6;
+      transition: background 0.35s ease, color 0.35s ease;
+      padding-top: var(--nav-height);
+    }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+    button { cursor:pointer; font-family:var(--font); border:none; background:none; color:inherit; }
+    input { font-family:var(--font); border:none; outline:none; background:none; color:inherit; }
+    .container { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:14px 32px; border-radius:var(--radius-full); font-weight:600; font-size:0.95rem;
+      transition:var(--transition); border:2px solid transparent; white-space:nowrap;
+    }
+    .btn-primary {
+      background:var(--gradient); color:#fff; box-shadow:0 4px 20px var(--accent-glow); border-color:var(--accent);
+    }
+    .btn-primary:hover { transform:translateY(-3px); box-shadow:0 8px 32px var(--accent-glow); }
+    .btn-outline {
+      background:transparent; border-color:var(--border-color); color:var(--text-primary);
+    }
+    .btn-outline:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-3px); background:var(--bg-input); }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      position:fixed; top:0; left:0; right:0; z-index:1000; height:var(--nav-height);
+      background:var(--bg-nav); backdrop-filter:blur(20px) saturate(180%);
+      -webkit-backdrop-filter:blur(20px) saturate(180%);
+      border-bottom:1px solid var(--border-color);
+      transition:background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      display:flex; align-items:center;
+    }
+    .navbar.scrolled { box-shadow:var(--shadow-sm); }
+    .navbar .container {
+      display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%;
+    }
+    .logo {
+      font-size:1.5rem; font-weight:800; letter-spacing:-0.5px;
+      background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      flex-shrink:0; display:flex; align-items:center; gap:2px;
+    }
+    .logo span { font-weight:300; -webkit-text-fill-color:var(--text-muted); background:none; }
+    [data-theme="dark"] .logo span { -webkit-text-fill-color:var(--text-muted); }
+
+    .nav-links {
+      display:flex; align-items:center; gap:32px;
+    }
+    .nav-links a {
+      font-size:0.9rem; font-weight:500; color:var(--text-secondary); transition:var(--transition);
+      position:relative; padding:4px 0;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px;
+      background:var(--gradient); transition:var(--transition); border-radius:4px;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-links a:hover { color:var(--text-primary); }
+    .nav-links a.active { color:var(--text-primary); }
+
+    .nav-actions {
+      display:flex; align-items:center; gap:8px; flex-shrink:0;
+    }
+    .theme-toggle {
+      padding:8px; border-radius:50%; transition:var(--transition); font-size:1.2rem;
+      display:flex; align-items:center; justify-content:center; width:40px; height:40px;
+    }
+    .theme-toggle:hover { background:var(--bg-input); }
+
+    .hamburger {
+      display:none; flex-direction:column; gap:5px; padding:6px; border-radius:8px; transition:var(--transition);
+    }
+    .hamburger:hover { background:var(--bg-input); }
+    .hamburger span {
+      display:block; width:24px; height:2.5px; background:var(--text-primary); border-radius:4px;
+      transition:var(--transition); transform-origin:center;
+    }
+    .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+    /* ===== Tool header ===== */
+    .tool-header {
+      padding:40px 0 16px;
+      background:var(--gradient-soft);
+      transition:background 0.35s ease;
+      border-bottom:1px solid var(--border-color);
+    }
+    [data-theme="dark"] .tool-header { background:var(--bg-secondary); }
+    .tool-header h1 {
+      font-size:clamp(1.8rem, 3vw, 2.6rem);
+      font-weight:700; letter-spacing:-0.5px;
+    }
+    .tool-header p { color:var(--text-secondary); font-size:1.05rem; }
+
+    /* ===== Converter UI ===== */
+    .converter-section { padding:48px 0; }
+    .converter-grid {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:32px;
+      align-items:start;
+    }
+    .control-panel {
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius);
+      padding:28px 24px;
+      box-shadow:var(--shadow-sm);
+    }
+    .control-panel h3 { font-weight:600; margin-bottom:20px; }
+    .upload-area {
+      border:2px dashed var(--border-color);
+      border-radius:var(--radius-sm);
+      padding:40px 20px;
+      text-align:center;
+      transition:var(--transition);
+      cursor:pointer;
+      background:var(--bg-input);
+    }
+    .upload-area:hover { border-color:var(--accent); background:var(--bg-card); }
+    .upload-area.dragover { border-color:var(--accent); background:var(--bg-card); box-shadow:0 0 0 4px var(--accent-glow); }
+    .upload-area .icon { font-size:3rem; display:block; margin-bottom:8px; }
+    .upload-area input[type="file"] { display:none; }
+    .upload-area p { color:var(--text-muted); }
+
+    .file-info {
+      margin-top:20px;
+      font-size:0.95rem;
+      color:var(--text-secondary);
+      background:var(--bg-input);
+      padding:12px 16px;
+      border-radius:var(--radius-sm);
+      border:1px solid var(--border-color);
+    }
+    .file-info strong { color:var(--text-primary); }
+
+    .download-area {
+      margin-top:24px;
+      display:flex; justify-content:center;
+    }
+
+    .preview-box {
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow-sm);
+      text-align:center;
+    }
+    .preview-box h4 {
+      font-weight:600; margin-bottom:12px; font-size:1rem;
+    }
+    .preview-box .image-wrapper {
+      display:flex; justify-content:center; align-items:center;
+      min-height:200px;
+      background:var(--bg-input);
+      border-radius:var(--radius-sm);
+      overflow:hidden;
+      padding:8px;
+    }
+    .preview-box .image-wrapper img {
+      max-width:100%;
+      max-height:350px;
+      object-fit:contain;
+      display:block;
+    }
+    .preview-box .dimensions-info {
+      margin-top:12px;
+      font-size:0.9rem;
+      color:var(--text-secondary);
+    }
+    .preview-box .dimensions-info span { font-weight:600; color:var(--text-primary); }
+
+    /* ===== How to Use, Features, FAQ, Related ===== */
+    .info-section {
+      padding:48px 0;
+      background:var(--bg-secondary);
+      border-top:1px solid var(--border-color);
+      transition:background 0.35s ease;
+    }
+    .info-section:last-of-type { border-bottom:1px solid var(--border-color); }
+    .info-section h2 {
+      font-size:clamp(1.5rem, 2.5vw, 2rem);
+      font-weight:700;
+      margin-bottom:24px;
+      letter-spacing:-0.3px;
+    }
+    .steps-grid, .features-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:24px;
+    }
+    .step-item, .feature-item {
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      padding:20px;
+      box-shadow:var(--shadow-sm);
+      transition:var(--transition);
+    }
+    .step-item:hover, .feature-item:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .step-item .number {
+      display:inline-block;
+      font-weight:700;
+      font-size:1.2rem;
+      color:var(--accent);
+      background:var(--bg-input);
+      padding:2px 12px;
+      border-radius:var(--radius-full);
+      margin-bottom:8px;
+    }
+    .step-item h4, .feature-item h4 { font-weight:600; margin-bottom:4px; }
+    .step-item p, .feature-item p { font-size:0.9rem; color:var(--text-secondary); }
+
+    .faq-list {
+      max-width:740px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .faq-item {
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      overflow:hidden;
+      box-shadow:var(--shadow-sm);
+      transition:var(--transition);
+    }
+    .faq-item:hover { border-color:var(--accent-light); }
+    .faq-question {
+      width:100%; padding:18px 24px; font-size:1rem; font-weight:600; text-align:left;
+      display:flex; justify-content:space-between; align-items:center;
+      color:var(--text-primary); transition:var(--transition); gap:16px; background:transparent;
+    }
+    .faq-question:hover { background:var(--bg-input); }
+    .faq-question .arrow { font-size:1.1rem; transition:var(--transition); flex-shrink:0; color:var(--text-muted); }
+    .faq-item.active .faq-question .arrow { transform:rotate(180deg); color:var(--accent); }
+    .faq-answer {
+      max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s ease;
+      padding:0 24px; color:var(--text-secondary); font-size:0.95rem; line-height:1.6;
+    }
+    .faq-item.active .faq-answer { max-height:200px; padding:0 24px 20px; }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+      gap:16px;
+    }
+    .related-card {
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      padding:20px 16px;
+      text-align:center;
+      transition:var(--transition);
+      box-shadow:var(--shadow-sm);
+    }
+    .related-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--accent); }
+    .related-card .icon { font-size:2rem; display:block; margin-bottom:6px; }
+    .related-card h4 { font-weight:600; font-size:0.95rem; }
+
+    /* ===== Responsive ===== */
+    @media (max-width:992px) {
+      .converter-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:768px) {
+      .nav-links {
+        position:fixed; top:var(--nav-height); left:0; right:0;
+        background:var(--bg-nav); backdrop-filter:blur(20px) saturate(180%);
+        -webkit-backdrop-filter:blur(20px) saturate(180%);
+        flex-direction:column; padding:28px 24px 32px; gap:16px;
+        border-bottom:1px solid var(--border-color);
+        transform:translateY(-120%);
+        transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+        box-shadow:var(--shadow-lg); align-items:stretch;
+      }
+      .nav-links.open { transform:translateY(0); }
+      .nav-links a { font-size:1rem; padding:8px 0; text-align:center; }
+      .nav-links a::after { display:none; }
+      .hamburger { display:flex; }
+      .tool-header { padding:24px 0 12px; }
+      .converter-section { padding:24px 0; }
+      .steps-grid, .features-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:480px) {
+      .container { padding:0 16px; }
+      .control-panel { padding:20px 16px; }
+      .upload-area { padding:24px 16px; }
+      .preview-box .image-wrapper { min-height:150px; }
+      .preview-box .image-wrapper img { max-height:200px; }
+      .related-grid { grid-template-columns:1fr 1fr; }
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background:var(--bg-secondary);
+      border-top:1px solid var(--border-color);
+      padding:48px 0 24px;
+      transition:background 0.35s ease;
+    }
+    .footer-grid {
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+      gap:32px;
+      margin-bottom:32px;
+    }
+    .footer-brand .logo { font-size:1.4rem; margin-bottom:8px; display:inline-block; }
+    .footer-brand p { color:var(--text-muted); font-size:0.9rem; max-width:240px; line-height:1.6; }
+    .footer-col h5 { font-weight:600; margin-bottom:14px; font-size:0.9rem; color:var(--text-primary); }
+    .footer-col a { display:block; font-size:0.85rem; color:var(--text-muted); padding:4px 0; transition:var(--transition); }
+    .footer-col a:hover { color:var(--accent); transform:translateX(4px); }
+    .footer-social { display:flex; gap:12px; margin-top:12px; }
+    .footer-social a {
+      display:flex; align-items:center; justify-content:center; width:40px; height:40px;
+      border-radius:50%; background:var(--bg-input); border:1px solid var(--border-color);
+      color:var(--text-secondary); font-size:1.1rem; transition:var(--transition);
+    }
+    .footer-social a:hover { background:var(--accent); color:#fff; border-color:var(--accent); transform:translateY(-3px); }
+    .footer-bottom { text-align:center; font-size:0.82rem; color:var(--text-muted); border-top:1px solid var(--border-color); padding-top:24px; }
+
+    @media (max-width:1024px) {
+      .footer-grid { grid-template-columns:1fr 1fr 1fr; gap:28px; }
+      .footer-brand { grid-column:1 / -1; }
+    }
+    @media (max-width:768px) {
+      .footer-grid { grid-template-columns:1fr 1fr; gap:24px; }
+      .footer-brand { grid-column:1 / -1; }
+    }
+    @media (max-width:480px) {
+      .footer-grid { grid-template-columns:1fr; gap:20px; }
+    }
+
+    /* ===== Utilities ===== */
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+    .text-center { text-align:center; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar" role="banner">
+    <div class="container">
+      <a href="index.html" class="logo" aria-label="ToolNova home">Tool<span>Nova</span></a>
+      <ul class="nav-links" id="navLinks" role="menubar">
+        <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+        <li role="none"><a href="index.html#tools" role="menuitem">Tools</a></li>
+        <li role="none"><a href="index.html#categories" role="menuitem">Categories</a></li>
+        <li role="none"><a href="index.html#blog" role="menuitem">Blog</a></li>
+        <li role="none"><a href="index.html#about" role="menuitem">About</a></li>
+        <li role="none"><a href="index.html#footer" role="menuitem">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+        <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== TOOL HEADER ===== -->
+    <div class="tool-header">
+      <div class="container">
+        <h1>🔄 JPG to PNG Converter</h1>
+        <p>Convert your JPG/JPEG images to PNG format in seconds. Lossless, high‑quality conversion — all in your browser.</p>
+      </div>
+    </div>
+
+    <!-- ===== CONVERTER UI ===== -->
+    <section class="converter-section">
+      <div class="container">
+        <div class="converter-grid">
+          <!-- Left: Controls -->
+          <div class="control-panel">
+            <h3>Upload &amp; Convert</h3>
+
+            <div class="upload-area" id="uploadArea">
+              <span class="icon">📤</span>
+              <p><strong>Click or drag</strong> to upload a JPG/JPEG image</p>
+              <p style="font-size:0.8rem; margin-top:4px;">Supports JPG, JPEG</p>
+              <input type="file" id="fileInput" accept="image/jpeg" />
+            </div>
+
+            <div class="file-info" id="fileInfo">
+              <strong>No file uploaded</strong>
+            </div>
+
+            <div class="download-area">
+              <button class="btn btn-primary" id="downloadBtn" disabled>
+                ⬇️ Download PNG
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Preview -->
+          <div class="preview-box">
+            <h4>Preview</h4>
+            <div class="image-wrapper" id="previewWrapper">
+              <span style="color:var(--text-muted);">No image loaded</span>
+            </div>
+            <div class="dimensions-info" id="dimensionsInfo">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW TO USE ===== -->
+    <section class="info-section">
+      <div class="container">
+        <h2>📖 How to Use</h2>
+        <div class="steps-grid">
+          <div class="step-item">
+            <span class="number">1</span>
+            <h4>Upload JPG</h4>
+            <p>Click the upload area or drag a JPG/JPEG file from your computer.</p>
+          </div>
+          <div class="step-item">
+            <span class="number">2</span>
+            <h4>Preview</h4>
+            <p>See your image and its dimensions instantly.</p>
+          </div>
+          <div class="step-item">
+            <span class="number">3</span>
+            <h4>Download PNG</h4>
+            <p>Click the “Download PNG” button to save the converted image.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="info-section" style="background:var(--bg-primary);">
+      <div class="container">
+        <h2>✨ Features</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <span style="font-size:1.8rem;">🖼️</span>
+            <h4>High Quality</h4>
+            <p>PNG preserves every pixel – no quality loss.</p>
+          </div>
+          <div class="feature-item">
+            <span style="font-size:1.8rem;">⚡</span>
+            <h4>Instant Conversion</h4>
+            <p>100% client-side, no upload delay.</p>
+          </div>
+          <div class="feature-item">
+            <span style="font-size:1.8rem;">🔒</span>
+            <h4>Private &amp; Secure</h4>
+            <p>Your files never leave your device.</p>
+          </div>
+          <div class="feature-item">
+            <span style="font-size:1.8rem;">📱</span>
+            <h4>Works Anywhere</h4>
+            <p>Mobile, tablet, desktop – fully responsive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="info-section">
+      <div class="container">
+        <h2>❓ FAQ</h2>
+        <div class="faq-list" id="faqList">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RELATED TOOLS ===== -->
+    <section class="info-section" style="background:var(--bg-primary);">
+      <div class="container">
+        <h2>🔧 Related Tools</h2>
+        <div class="related-grid">
+          <a href="image-compressor.html" class="related-card">
+            <span class="icon">🗜️</span>
+            <h4>Image Compressor</h4>
+          </a>
+          <a href="image-resizer.html" class="related-card">
+            <span class="icon">📐</span>
+            <h4>Image Resizer</h4>
+          </a>
+          <a href="jpg-to-pdf.html" class="related-card">
+            <span class="icon">📄</span>
+            <h4>JPG to PDF</h4>
+          </a>
+          <a href="qr-code-generator.html" class="related-card">
+            <span class="icon">📱</span>
+            <h4>QR Code Generator</h4>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">Tool<span>Nova</span></a>
+          <p>100% free online tools for students, professionals, developers, and designers.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter" title="Twitter">🐦</a>
+            <a href="#" aria-label="GitHub" title="GitHub">🐙</a>
+            <a href="#" aria-label="YouTube" title="YouTube">▶️</a>
+            <a href="#" aria-label="Discord" title="Discord">💬</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">Sitemap</a>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+          <a href="#">Disclaimer</a>
+        </div>
+        <div class="footer-col">
+          <h5>Tools</h5>
+          <a href="image-resizer.html">Image Resizer</a>
+          <a href="jpg-to-png.html">JPG to PNG</a>
+          <a href="image-compressor.html">Image Compressor</a>
+          <a href="jpg-to-pdf.html">JPG to PDF</a>
+        </div>
+        <div class="footer-col">
+          <h5>Resources</h5>
+          <a href="#">Blog</a>
+          <a href="#">Guides</a>
+          <a href="#">API</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 ToolNova. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ================================================================
+    // THEME TOGGLE
+    // ================================================================
+    (function initTheme() {
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+      toggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        icon.textContent = next === 'dark' ? '☀️' : '🌙';
+      });
+    })();
+
+    // ================================================================
+    // MOBILE MENU
+    // ================================================================
+    (function initMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+
+    // ================================================================
+    // FAQ ACCORDION
+    // ================================================================
+    (function initFaq() {
+      const faqs = [
+        { q: 'Is this converter free?', a: 'Yes, absolutely free – no limits, no signup.' },
+        { q: 'What image formats are supported?', a: 'Currently we support JPG and JPEG input. Output is always PNG.' },
+        { q: 'Is my image uploaded to a server?', a: 'No. Everything runs in your browser. Your files stay private.' },
+        { q: 'What is the maximum file size?', a: 'There is no strict limit, but very large files might be slower.' },
+        { q: 'Can I convert other formats?', a: 'We have tools for WebP, PNG, and more. Check our homepage.' }
+      ];
+      const list = document.getElementById('faqList');
+      list.innerHTML = faqs.map((f, i) =>
+        `<div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>${f.q}</span>
+            <span class="arrow">▾</span>
+          </button>
+          <div class="faq-answer">${f.a}</div>
+        </div>`
+      ).join('');
+
+      list.querySelectorAll('.faq-item').forEach((item) => {
+        const btn = item.querySelector('.faq-question');
+        btn.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          list.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+          if (!isActive) item.classList.add('active');
+        });
+      });
+    })();
+
+    // ================================================================
+    // JPG to PNG CONVERTER LOGIC
+    // ================================================================
+    (function() {
+      const fileInput = document.getElementById('fileInput');
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInfo = document.getElementById('fileInfo');
+      const previewWrapper = document.getElementById('previewWrapper');
+      const dimensionsInfo = document.getElementById('dimensionsInfo');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      let originalImage = null;
+      let originalWidth = 0, originalHeight = 0;
+      let convertedDataURL = null;
+
+      function updatePreview() {
+        if (!originalImage) {
+          previewWrapper.innerHTML = `<span style="color:var(--text-muted);">No image loaded</span>`;
+          dimensionsInfo.textContent = '—';
+          fileInfo.innerHTML = '<strong>No file uploaded</strong>';
+          downloadBtn.disabled = true;
+          convertedDataURL = null;
+          return;
+        }
+
+        // Show preview
+        previewWrapper.innerHTML = '';
+        const img = originalImage.cloneNode();
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '350px';
+        img.style.objectFit = 'contain';
+        previewWrapper.appendChild(img);
+
+        dimensionsInfo.textContent = `${originalWidth} × ${originalHeight}`;
+        fileInfo.innerHTML = `<strong>${fileInput.files[0].name}</strong> – ${(fileInput.files[0].size / 1024).toFixed(1)} KB`;
+
+        // Convert to PNG
+        const canvas = document.createElement('canvas');
+        canvas.width = originalWidth;
+        canvas.height = originalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(originalImage, 0, 0);
+        convertedDataURL = canvas.toDataURL('image/png');
+
+        downloadBtn.disabled = false;
+      }
+
+      // File load
+      function loadFile(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            originalImage = img;
+            originalWidth = img.width;
+            originalHeight = img.height;
+            updatePreview();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) loadFile(file);
+      });
+
+      // Drag & drop
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      });
+      uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+      });
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          fileInput.files = files;
+          fileInput.dispatchEvent(new Event('change'));
+        }
+      });
+      uploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+
+      // Download
+      downloadBtn.addEventListener('click', function() {
+        if (!convertedDataURL) return;
+        const a = document.createElement('a');
+        a.href = convertedDataURL;
+        let fileName = 'converted.png';
+        if (fileInput.files.length > 0) {
+          const origName = fileInput.files[0].name;
+          fileName = origName.replace(/\.[^.]+$/, '') + '.png';
+        }
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+    })();
+  </script>
+
+</body>
+</html>
