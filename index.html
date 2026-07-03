@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +9,6 @@
     <meta name="description" content="ToolNova offers 100% free online tools: Image Compressor, PDF Merge, QR Code Generator, Password Generator, Word Counter and more. No signup required." />
     <meta name="keywords" content="free online tools, image compressor, pdf merge, qr code generator, password generator, word counter, jpg to pdf, jpg to png, image resizer, age calculator, pdf split, utility tools" />
     <link rel="canonical" href="https://toolnova.com/" />
-
     <!-- Open Graph -->
     <meta property="og:title" content="ToolNova — 100% Free Online Tools" />
     <meta property="og:description" content="Powerful PDF, Image, Text and Utility tools. No Signup. No Installation. Completely Free." />
@@ -609,6 +610,8 @@
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
             cursor: default;
+            display: block;
+            color: inherit;
         }
         .tool-card:hover {
             transform: translateY(-6px);
@@ -1173,9 +1176,10 @@
             text-align: center;
         }
     </style>
-</head>
-<body>
 
+</head>
+
+<body>
     <!-- ===== NAVBAR ===== -->
     <header class="navbar" id="navbar" role="banner">
         <div class="container">
@@ -1405,21 +1409,16 @@
         // ================================================================
 
         const toolsData = [
-             {
-  icon: '🗜️',
-  name: 'Image Compressor',
-  desc: 'Reduce image size without quality loss.',
-  link: 'image-compressor.html'
-},
-            { icon: '📐', name: 'Image Resizer', desc: 'Resize images for any platform.' },
-            { icon: '📑', name: 'PDF Merge', desc: 'Combine multiple PDFs in seconds.' },
-            { icon: '✂️', name: 'PDF Split', desc: 'Split PDF pages easily.' },
-            { icon: '📄', name: 'JPG to PDF', desc: 'Convert JPG images to PDF format.' },
-            { icon: '📱', name: 'QR Code Generator', desc: 'Create custom QR codes instantly.' },
-            { icon: '🔐', name: 'Password Generator', desc: 'Generate strong, secure passwords.' },
-            { icon: '📝', name: 'Word Counter', desc: 'Count words, characters, and lines.' },
-            { icon: '🎂', name: 'Age Calculator', desc: 'Calculate your age in years, months, days.' },
-            { icon: '🔄', name: 'JPG to PNG', desc: 'Convert JPG images to PNG format.' }
+            { icon: '🗜️', name: 'Image Compressor', desc: 'Reduce image size without quality loss.', link: 'image-compressor.html' },
+            { icon: '📐', name: 'Image Resizer', desc: 'Resize images for any platform.', link: 'image-resizer.html' },
+            { icon: '📑', name: 'PDF Merge', desc: 'Combine multiple PDFs in seconds.', link: 'pdf-merge.html' },
+            { icon: '✂️', name: 'PDF Split', desc: 'Split PDF pages easily.', link: 'pdf-split.html' },
+            { icon: '📄', name: 'JPG to PDF', desc: 'Convert JPG images to PDF format.', link: 'jpg-to-pdf.html' },
+            { icon: '📱', name: 'QR Code Generator', desc: 'Create custom QR codes instantly.', link: 'qr-code-generator.html' },
+            { icon: '🔐', name: 'Password Generator', desc: 'Generate strong, secure passwords.', link: 'password-generator.html' },
+            { icon: '📝', name: 'Word Counter', desc: 'Count words, characters, and lines.', link: 'word-counter.html' },
+            { icon: '🎂', name: 'Age Calculator', desc: 'Calculate your age in years, months, days.', link: 'age-calculator.html' },
+            { icon: '🔄', name: 'JPG to PNG', desc: 'Convert JPG images to PNG format.', link: 'jpg-to-png.html' }
         ];
 
         const blogPosts = [{
@@ -1463,11 +1462,11 @@
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
             grid.innerHTML = toolsData.map((t, i) =>
-                `<div class="tool-card lazy" data-delay="${i * 60}">
-              <span class="icon">${t.icon}</span>
-              <h4>${t.name}</h4>
-              <p>${t.desc}</p>
-            </div>`
+                `<a href="${t.link}" class="tool-card lazy" data-delay="${i * 60}">
+                      <span class="icon">${t.icon}</span>
+                      <h4>${t.name}</h4>
+                      <p>${t.desc}</p>
+                    </a>`
             ).join('');
         }
 
@@ -1475,13 +1474,13 @@
             const grid = document.getElementById('blogGrid');
             grid.innerHTML = blogPosts.map((p, i) =>
                 `<div class="blog-card lazy" data-delay="${i * 60}">
-              <div class="thumb">📰</div>
-              <div class="body">
-                <span class="tag">${p.tag}</span>
-                <h4>${p.title}</h4>
-                <p>${p.desc}</p>
-              </div>
-            </div>`
+                      <div class="thumb">📰</div>
+                      <div class="body">
+                        <span class="tag">${p.tag}</span>
+                        <h4>${p.title}</h4>
+                        <p>${p.desc}</p>
+                      </div>
+                    </div>`
             ).join('');
         }
 
@@ -1489,12 +1488,12 @@
             const list = document.getElementById('faqList');
             list.innerHTML = faqs.map((f, i) =>
                 `<div class="faq-item lazy" data-delay="${i * 40}">
-              <button class="faq-question" aria-expanded="false">
-                <span>${f.q}</span>
-                <span class="arrow">▾</span>
-              </button>
-              <div class="faq-answer">${f.a}</div>
-            </div>`
+                      <button class="faq-question" aria-expanded="false">
+                        <span>${f.q}</span>
+                        <span class="arrow">▾</span>
+                      </button>
+                      <div class="faq-answer">${f.a}</div>
+                    </div>`
             ).join('');
 
             list.querySelectorAll('.faq-item').forEach((item) => {
@@ -1672,4 +1671,5 @@
     </script>
 
 </body>
+
 </html>
