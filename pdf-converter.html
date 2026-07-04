@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1359,7 +1360,7 @@
         })();
 
         // ================================================================
-        // PDF CONVERTER LOGIC – FIXED PDF → IMAGES
+        // PDF CONVERTER LOGIC — FIXED (no detached ArrayBuffer)
         // ================================================================
         (function() {
             // ---- State ----
@@ -1756,7 +1757,7 @@
                                 const blob = new Blob([fileData.arrayBuffer], { type: 'application/pdf' });
                                 fileData.dataURL = URL.createObjectURL(blob);
                             } catch (e) {}
-                            // Get page count
+                            // Get page count using a copy of the buffer
                             getPdfPageCount(fileData).then(() => {
                                 state.files.push(fileData);
                                 processed++;
@@ -1796,12 +1797,13 @@
                 fileInput.value = '';
             }
 
+            // ---- Get PDF page count (uses a copy of the buffer) ----
             async function getPdfPageCount(fileData) {
                 try {
                     const pdfjsLib = window.pdfjsLib;
                     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-                    // IMPORTANT: convert ArrayBuffer to Uint8Array to avoid "Invalid PDF structure"
-                    const data = new Uint8Array(fileData.arrayBuffer);
+                    // IMPORTANT: create a new Uint8Array from a copy of the buffer to avoid detachment
+                    const data = new Uint8Array(fileData.arrayBuffer.slice(0));
                     const pdf = await pdfjsLib.getDocument({ data }).promise;
                     fileData.pages = pdf.numPages;
                     return pdf.numPages;
@@ -1915,7 +1917,7 @@
                 progressText.textContent = '✅ Conversion complete!';
             }
 
-            // ---- PDF → Images — FIXED: use Uint8Array ----
+            // ---- PDF → Images — FIXED: use a copy of the buffer ----
             async function convertPdfToImages() {
                 const pdfFile = state.files.find(f => f.type === 'application/pdf');
                 if (!pdfFile) {
@@ -1928,8 +1930,8 @@
                 const pdfjsLib = window.pdfjsLib;
                 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-                // CRITICAL FIX: convert ArrayBuffer to Uint8Array before passing to pdf.js
-                const data = new Uint8Array(pdfFile.arrayBuffer);
+                // CRITICAL FIX: create a new Uint8Array from a copy of the buffer
+                const data = new Uint8Array(pdfFile.arrayBuffer.slice(0));
                 const loadingTask = pdfjsLib.getDocument({ data });
                 const pdf = await loadingTask.promise;
                 const numPages = pdf.numPages;
