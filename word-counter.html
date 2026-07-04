@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Text Tools - Word Counter, Case Converter & Lorem Ipsum Generator | ToolNova</title>
+    <meta name="description" content="Free online text tools: word counter, character counter, text case converter, and lorem ipsum generator. Perfect for writers, editors, and content creators." />
+    <link rel="canonical" href="https://toolnova.com/text-tools.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Free Text Tools - Word Counter, Case Converter & Lorem Ipsum Generator | ToolNova" />
+    <meta property="og:description" content="Free online text tools: word counter, character counter, text case converter, and lorem ipsum generator." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://toolnova.com/text-tools.html" />
+    <meta property="og:image" content="https://toolnova.com/og-image.jpg" />
+    <meta property="og:site_name" content="ToolNova" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Free Text Tools - Word Counter, Case Converter & Lorem Ipsum Generator | ToolNova" />
+    <meta name="twitter:description" content="Free online text tools: word counter, character counter, text case converter, and lorem ipsum generator." />
+    <meta name="twitter:image" content="https://toolnova.com/twitter-image.jpg" />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "ToolNova Text Tools",
+            "url": "https://toolnova.com/text-tools.html",
+            "description": "Free online text tools including word counter, character counter, text case converter, and lorem ipsum generator.",
+            "applicationCategory": "Utility",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolnova.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Text Tools", "item": "https://toolnova.com/text-tools.html" }
+            ]
+        }
+    </script>
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #f8faff;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #f0f4ff;
+            --bg-nav: rgba(255, 255, 255, 0.80);
+            --text-primary: #0b1a33;
+            --text-secondary: #2d3a4f;
+            --text-muted: #6b7a8f;
+            --border-color: #e6edf5;
+            --shadow-sm: 0 2px 12px rgba(11, 26, 51, 0.06);
+            --shadow-md: 0 8px 32px rgba(11, 26, 51, 0.08);
+            --shadow-lg: 0 16px 56px rgba(11, 26, 51, 0.10);
+            --shadow-hover: 0 20px 60px rgba(11, 26, 51, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-full: 60px;
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-dark: #1d4ed8;
+            --accent-glow: rgba(37, 99, 235, 0.20);
+            --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --gradient-soft: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --nav-height: 72px;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a1628;
+            --bg-secondary: #111f3a;
+            --bg-card: #15243f;
+            --bg-input: #1a2a4a;
+            --bg-nav: rgba(10, 22, 40, 0.88);
+            --text-primary: #f0f4ff;
+            --text-secondary: #c8d2e6;
+            --text-muted: #8a9bb5;
+            --border-color: #1e3150;
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.30);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.40);
+            --shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.50);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.60);
+            --accent-glow: rgba(59, 130, 246, 0.25);
+            --gradient-soft: linear-gradient(135deg, #0f2847 0%, #1a3a66 100%);
+        }
+
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.35s ease, color 0.35s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: var(--nav-height);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        ul {
+            list-style: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            cursor: pointer;
+            font-family: var(--font);
+            border: none;
+            background: none;
+            color: inherit;
+        }
+        textarea,
+        input,
+        select {
+            font-family: var(--font);
+            border: none;
+            outline: none;
+            background: none;
+            color: inherit;
+        }
+        label {
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            border-color: var(--accent);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .btn-outline {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            background: var(--bg-input);
+        }
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+            border-color: var(--success);
+        }
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(34, 197, 94, 0.30);
+        }
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+            border-color: var(--danger);
+        }
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(239, 68, 68, 0.30);
+        }
+        .btn-sm {
+            padding: 8px 18px;
+            font-size: 0.8rem;
+        }
+        .btn-block {
+            width: 100%;
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--nav-height);
+            background: var(--bg-nav);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            display: flex;
+            align-items: center;
+        }
+        .navbar.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .logo span {
+            font-weight: 300;
+            -webkit-text-fill-color: var(--text-muted);
+            background: none;
+        }
+        [data-theme="dark"] .logo span {
+            -webkit-text-fill-color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            padding: 6px 16px 6px 18px;
+            transition: var(--transition);
+            width: 180px;
+        }
+        .nav-search:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .nav-search input {
+            background: transparent;
+            font-size: 0.85rem;
+            padding: 6px 0;
+            width: 100%;
+            min-width: 60px;
+            color: var(--text-primary);
+        }
+        .nav-search input::placeholder {
+            color: var(--text-muted);
+        }
+        .nav-search .search-icon {
+            color: var(--text-muted);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        .theme-toggle:hover {
+            background: var(--bg-input);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 6px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .hamburger:hover {
+            background: var(--bg-input);
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== Breadcrumb ===== */
+        .breadcrumb {
+            padding: 20px 0 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .breadcrumb a {
+            color: var(--accent);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 4px;
+        }
+
+        /* ===== Tool Section ===== */
+        .tool-section {
+            padding: 40px 0 60px;
+        }
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .tool-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        .tool-header h1 .highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tool-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 6px;
+            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            text-align: center;
+            background: transparent;
+        }
+        .tab-btn:hover {
+            background: var(--bg-input);
+            color: var(--text-primary);
+        }
+        .tab-btn.active {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+        .tab-btn .tab-icon {
+            margin-right: 8px;
+        }
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Glass Card ===== */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .glass-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .glass-card .card-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        .glass-card .card-title .emoji {
+            font-size: 1.3rem;
+        }
+
+        /* ===== Textarea ===== */
+        .text-input-wrap {
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            transition: var(--transition);
+        }
+        .text-input-wrap:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .text-input-wrap textarea {
+            width: 100%;
+            min-height: 160px;
+            padding: 16px;
+            background: transparent;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            resize: vertical;
+            color: var(--text-primary);
+            border: none;
+            outline: none;
+            font-family: var(--font);
+        }
+        .text-input-wrap textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ===== Stats Grid ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .stat-item {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px 12px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .stat-item:hover {
+            border-color: var(--accent-light);
+        }
+        .stat-item .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+            line-height: 1.2;
+        }
+        .stat-item .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== Action Row ===== */
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .action-row .btn {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        /* ===== Case Converter Buttons ===== */
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .case-btn {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        .case-btn:hover {
+            background: var(--bg-card);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+        .case-btn.active {
+            background: var(--gradient);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        /* ===== Lorem Ipsum Controls ===== */
+        .lorem-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .lorem-controls .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .lorem-controls .control-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .lorem-controls .control-group select,
+        .lorem-controls .control-group input {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            min-width: 80px;
+            transition: var(--transition);
+        }
+        .lorem-controls .control-group select:focus,
+        .lorem-controls .control-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .lorem-controls .control-group.checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lorem-controls .control-group.checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+        .lorem-output {
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            min-height: 120px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            transition: var(--transition);
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .lorem-output:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .lorem-output .placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ===== Toast ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 360px;
+            width: 100%;
+        }
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px 20px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.4s ease;
+            transition: var(--transition);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+        .toast.error {
+            border-left: 4px solid var(--danger);
+        }
+        .toast .toast-icon {
+            font-size: 1.2rem;
+        }
+        .toast .toast-msg {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .toast .toast-close {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .toast .toast-close:hover {
+            color: var(--text-primary);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .toast.hide {
+            opacity: 0;
+            transform: translateX(40px);
+            pointer-events: none;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            padding: 60px 0;
+            background: var(--bg-secondary);
+            transition: background 0.35s ease;
+            border-top: 1px solid var(--border-color);
+        }
+        .faq-section .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .faq-section .section-header h2 {
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .faq-section .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .faq-list {
+            max-width: 740px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            transition: var(--transition);
+        }
+        .faq-item:hover {
+            border-color: var(--accent-light);
+        }
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .faq-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* ===== Related Tools ===== */
+        .related-tools {
+            padding: 60px 0;
+            background: var(--bg-primary);
+            transition: background 0.35s ease;
+            border-top: 1px solid var(--border-color);
+        }
+        .related-tools .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .related-tools .section-header h2 {
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .related-tools .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .related-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 24px 16px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+        .related-card .icon {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .related-card h4 {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .related-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 48px 0 24px;
+            transition: background 0.35s ease;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .footer-brand .logo {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 240px;
+            line-height: 1.6;
+        }
+        .footer-col h5 {
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 4px 0;
+            transition: var(--transition);
+        }
+        .footer-col a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        .footer-social a:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 28px;
+            }
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: var(--bg-nav);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                flex-direction: column;
+                padding: 28px 24px 32px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border-color);
+                transform: translateY(-120%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                box-shadow: var(--shadow-lg);
+                align-items: stretch;
+            }
+            .nav-links.open {
+                transform: translateY(0);
+            }
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 0;
+                text-align: center;
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-search {
+                width: 140px;
+            }
+            .nav-search input {
+                font-size: 0.8rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            .case-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 20px 16px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+            .tool-section {
+                padding: 24px 0 40px;
+            }
+            .nav-search {
+                width: 120px;
+            }
+            .nav-search input {
+                min-width: 40px;
+            }
+            .tabs .tab-btn {
+                font-size: 0.8rem;
+                padding: 10px 14px;
+                min-width: 80px;
+            }
+            .tabs .tab-btn .tab-icon {
+                margin-right: 4px;
+            }
+            .action-row .btn {
+                flex: 1 1 100%;
+            }
+            .lorem-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .lorem-controls .control-group {
+                justify-content: space-between;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            .stat-item .stat-number {
+                font-size: 1.2rem;
+            }
+            .stat-item .stat-label {
+                font-size: 0.65rem;
+            }
+            .case-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+            .case-btn {
+                font-size: 0.75rem;
+                padding: 8px 12px;
+            }
+            .toast-container {
+                right: 16px;
+                left: 16px;
+                max-width: none;
+                bottom: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 16px 12px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .nav-search {
+                width: 100px;
+            }
+            .nav-search input::placeholder {
+                font-size: 0.7rem;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .navbar .container {
+                gap: 8px;
+            }
+            .text-input-wrap textarea {
+                min-height: 120px;
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .stat-item {
+                padding: 10px 8px;
+            }
+            .stat-item .stat-number {
+                font-size: 1rem;
+            }
+            .stat-item .stat-label {
+                font-size: 0.6rem;
+            }
+            .case-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .case-btn {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+            .related-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .toast {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== Utility ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mt-24 {
+            margin-top: 24px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .gap-12 {
+            gap: 12px;
+        }
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar" id="navbar" role="banner">
+        <div class="container">
+            <a href="/" class="logo" aria-label="ToolNova home">Tool<span>Nova</span></a>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="/" role="menuitem">Home</a></li>
+                <li role="none"><a href="/#tools" role="menuitem">Tools</a></li>
+                <li role="none"><a href="/#categories" role="menuitem">Categories</a></li>
+                <li role="none"><a href="/#blog" role="menuitem">Blog</a></li>
+                <li role="none"><a href="/#about" role="menuitem">About</a></li>
+                <li role="none"><a href="/#footer" role="menuitem">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="nav-search" role="search">
+                    <span class="search-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    </span>
+                    <input type="search" placeholder="Search tools..." aria-label="Search tools" />
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ===== BREADCRUMB ===== -->
+        <div class="container">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a><span>›</span><span>Text Tools</span>
+            </nav>
+        </div>
+
+        <!-- ===== TOOL SECTION ===== -->
+        <section class="tool-section">
+            <div class="container">
+                <div class="tool-header">
+                    <h1><span class="highlight">Text Tools</span></h1>
+                    <p>Word counter, case converter, and lorem ipsum generator — all in one place. Free, fast, and private.</p>
+                </div>
+
+                <!-- ===== TABS ===== -->
+                <div class="tabs" role="tablist">
+                    <button class="tab-btn active" data-tab="wordcounter" role="tab" aria-selected="true">
+                        <span class="tab-icon">📝</span> Word Counter
+                    </button>
+                    <button class="tab-btn" data-tab="caseconverter" role="tab" aria-selected="false">
+                        <span class="tab-icon">🔤</span> Case Converter
+                    </button>
+                    <button class="tab-btn" data-tab="loremipsum" role="tab" aria-selected="false">
+                        <span class="tab-icon">📄</span> Lorem Ipsum
+                    </button>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- TAB 1: WORD COUNTER -->
+                <!-- ============================================================ -->
+                <div class="tab-panel active" id="panel-wordcounter" role="tabpanel">
+                    <div class="glass-card">
+                        <div class="card-title"><span class="emoji">📝</span> Word Counter</div>
+
+                        <div class="text-input-wrap">
+                            <textarea id="wcText" placeholder="Paste or type your text here..." aria-label="Text to analyze"></textarea>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="stats-grid" id="wcStats">
+                            <div class="stat-item"><span class="stat-number" id="wcWords">0</span><span class="stat-label">Words</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcChars">0</span><span class="stat-label">Characters (with spaces)</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcCharsNoSpace">0</span><span class="stat-label">Characters (no spaces)</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcSentences">0</span><span class="stat-label">Sentences</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcParagraphs">0</span><span class="stat-label">Paragraphs</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcReadingTime">0 min</span><span class="stat-label">Reading Time</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcSpeakingTime">0 min</span><span class="stat-label">Speaking Time</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcPages">0</span><span class="stat-label">Pages</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcRepeated">—</span><span class="stat-label">Most Repeated</span></div>
+                            <div class="stat-item"><span class="stat-number" id="wcDensity">0%</span><span class="stat-label">Keyword Density</span></div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="action-row">
+                            <button class="btn btn-outline" id="wcCopyBtn">📋 Copy Text</button>
+                            <button class="btn btn-outline" id="wcClearBtn">🗑 Clear</button>
+                            <button class="btn btn-outline" id="wcDownloadBtn">📥 Download TXT</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- TAB 2: CASE CONVERTER -->
+                <!-- ============================================================ -->
+                <div class="tab-panel" id="panel-caseconverter" role="tabpanel">
+                    <div class="glass-card">
+                        <div class="card-title"><span class="emoji">🔤</span> Text Case Converter</div>
+
+                        <div class="text-input-wrap">
+                            <textarea id="ccText" placeholder="Paste or type your text here..." aria-label="Text to convert"></textarea>
+                        </div>
+
+                        <!-- Case Buttons -->
+                        <div class="case-grid" id="caseGrid">
+                            <button class="case-btn" data-case="uppercase">UPPERCASE</button>
+                            <button class="case-btn" data-case="lowercase">lowercase</button>
+                            <button class="case-btn" data-case="title">Title Case</button>
+                            <button class="case-btn" data-case="sentence">Sentence case</button>
+                            <button class="case-btn" data-case="capitalize">Capitalize Every Word</button>
+                            <button class="case-btn" data-case="toggle">Toggle Case</button>
+                            <button class="case-btn" data-case="inverse">Inverse Case</button>
+                            <button class="case-btn" data-case="reverse">Reverse Text</button>
+                            <button class="case-btn" data-case="reverseWords">Reverse Words</button>
+                            <button class="case-btn" data-case="trim">Remove Extra Spaces</button>
+                            <button class="case-btn" data-case="removeEmpty">Remove Empty Lines</button>
+                            <button class="case-btn" data-case="dedupe">Remove Duplicate Lines</button>
+                            <button class="case-btn" data-case="sortAsc">Sort A→Z</button>
+                            <button class="case-btn" data-case="sortDesc">Sort Z→A</button>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="action-row">
+                            <button class="btn btn-primary" id="ccConvertBtn">⚡ Convert</button>
+                            <button class="btn btn-outline" id="ccCopyBtn">📋 Copy</button>
+                            <button class="btn btn-outline" id="ccDownloadBtn">📥 Download TXT</button>
+                            <button class="btn btn-outline" id="ccClearBtn">🗑 Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- TAB 3: LOREM IPSUM GENERATOR -->
+                <!-- ============================================================ -->
+                <div class="tab-panel" id="panel-loremipsum" role="tabpanel">
+                    <div class="glass-card">
+                        <div class="card-title"><span class="emoji">📄</span> Lorem Ipsum Generator</div>
+
+                        <!-- Controls -->
+                        <div class="lorem-controls">
+                            <div class="control-group">
+                                <label for="loremType">Type</label>
+                                <select id="loremType">
+                                    <option value="words">Words</option>
+                                    <option value="sentences" selected>Sentences</option>
+                                    <option value="paragraphs">Paragraphs</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="loremAmount">Amount</label>
+                                <input type="number" id="loremAmount" value="3" min="1" max="100" />
+                            </div>
+                            <div class="control-group checkbox-group">
+                                <input type="checkbox" id="loremStartWith" checked />
+                                <label for="loremStartWith">Start with "Lorem ipsum"</label>
+                            </div>
+                            <div class="control-group checkbox-group">
+                                <input type="checkbox" id="loremRandom" />
+                                <label for="loremRandom">Random paragraphs</label>
+                            </div>
+                            <button class="btn btn-primary" id="loremGenerateBtn">⚡ Generate</button>
+                        </div>
+
+                        <!-- Output -->
+                        <div class="lorem-output" id="loremOutput" contenteditable="false">
+                            <span class="placeholder">Click Generate to create Lorem Ipsum text.</span>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="action-row">
+                            <button class="btn btn-outline" id="loremCopyBtn">📋 Copy</button>
+                            <button class="btn btn-outline" id="loremDownloadBtn">📥 Download TXT</button>
+                            <button class="btn btn-outline" id="loremClearBtn">🗑 Clear</button>
+                            <button class="btn btn-primary" id="loremRegenerateBtn">🔄 Regenerate</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== FAQ SECTION ===== -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Everything you need to know about Text Tools.</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <strong>What does the Word Counter tool count?</strong>
+                        <p>It counts words, characters (with and without spaces), sentences, paragraphs, reading time, speaking time, estimated pages, most repeated word, and keyword density.</p>
+                    </div>
+                    <div class="faq-item">
+                        <strong>How does the Case Converter work?</strong>
+                        <p>Simply paste your text, select a conversion option (UPPERCASE, lowercase, Title Case, etc.), and click Convert. The tool will transform your text instantly.</p>
+                    </div>
+                    <div class="faq-item">
+                        <strong>What is Lorem Ipsum?</strong>
+                        <p>Lorem Ipsum is placeholder text commonly used in the design and publishing industries. It allows designers to focus on layout without being distracted by meaningful content.</p>
+                    </div>
+                    <div class="faq-item">
+                        <strong>Is my data stored anywhere?</strong>
+                        <p>No. All text processing happens locally in your browser. Your data never leaves your device. The Word Counter saves your text in Local Storage for convenience.</p>
+                    </div>
+                    <div class="faq-item">
+                        <strong>Can I export my text?</strong>
+                        <p>Yes. Each tool has a "Download TXT" button that lets you save your text as a .txt file. You can also copy text to your clipboard with one click.</p>
+                    </div>
+                    <div class="faq-item">
+                        <strong>Are these tools free?</strong>
+                        <p>Yes, all Text Tools are 100% free to use. No signup, no limits, no hidden fees.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RELATED TOOLS ===== -->
+        <section class="related-tools">
+            <div class="container">
+                <div class="section-header">
+                    <h2>🛠️ More Free Tools</h2>
+                    <p>Explore other useful tools from ToolNova</p>
+                </div>
+                <div class="related-grid">
+                    <a href="/password-generator.html" class="related-card">
+                        <span class="icon">🔐</span>
+                        <h4>Password Generator</h4>
+                        <p>Generate strong, secure passwords</p>
+                    </a>
+                    <a href="/color-tools.html" class="related-card">
+                        <span class="icon">🎨</span>
+                        <h4>Color Tools</h4>
+                        <p>Pick, convert, and generate colors</p>
+                    </a>
+                    <a href="/qr-code-generator.html" class="related-card">
+                        <span class="icon">📱</span>
+                        <h4>QR Code Generator</h4>
+                        <p>Create custom QR codes instantly</p>
+                    </a>
+                    <a href="/pdf-tools.html" class="related-card">
+                        <span class="icon">📑</span>
+                        <h4>PDF Tools</h4>
+                        <p>Merge, split, and convert PDFs</p>
+                    </a>
+                    <a href="/image-tools.html" class="related-card">
+                        <span class="icon">🖼️</span>
+                        <h4>Image Tools</h4>
+                        <p>Compress, resize, and convert images</p>
+                    </a>
+                    <a href="/age-calculator.html" class="related-card">
+                        <span class="icon">🎂</span>
+                        <h4>Age Calculator</h4>
+                        <p>Calculate your exact age</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">Tool<span>Nova</span></a>
+                    <p>100% free online tools for students, professionals, developers, and designers.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Twitter" title="Twitter">🐦</a>
+                        <a href="#" aria-label="GitHub" title="GitHub">🐙</a>
+                        <a href="#" aria-label="YouTube" title="YouTube">▶️</a>
+                        <a href="#" aria-label="Discord" title="Discord">💬</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <a href="/about.html">About</a>
+                    <a href="/contact.html">Contact</a>
+                    <a href="/sitemap.html">Sitemap</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Legal</h5>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms</a>
+                    <a href="/disclaimer.html">Disclaimer</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Tools</h5>
+                    <a href="/text-tools.html">Text Tools</a>
+                    <a href="/password-generator.html">Password Generator</a>
+                    <a href="/qr-code-generator.html">QR Code Generator</a>
+                    <a href="/pdf-tools.html">PDF Tools</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <a href="/blog.html">Blog</a>
+                    <a href="/guides.html">Guides</a>
+                    <a href="/api.html">API</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 ToolNova. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ================================================================
+        // TOAST SYSTEM
+        // ================================================================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span class="toast-icon">${type === 'success' ? '✅' : '⚠️'}</span>
+                <span class="toast-msg">${message}</span>
+                <span class="toast-close">✕</span>
+            `;
+            toast.querySelector('.toast-close').addEventListener('click', () => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 400);
+            });
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        function copyText(text, label = 'Copied!') {
+            if (!text) {
+                showToast('Nothing to copy.', 'error');
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(`${label} ${text.length > 30 ? text.slice(0, 30) + '…' : text}`);
+                }).catch(() => {
+                    fallbackCopy(text, label);
+                });
+            } else {
+                fallbackCopy(text, label);
+            }
+        }
+
+        function fallbackCopy(text, label) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            el.style.position = 'fixed';
+            el.style.left = '-9999px';
+            el.style.top = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            try {
+                document.execCommand('copy');
+                showToast(`${label} ${text.length > 30 ? text.slice(0, 30) + '…' : text}`);
+            } catch (e) {
+                showToast('Failed to copy. Please copy manually.', 'error');
+            }
+            document.body.removeChild(el);
+        }
+
+        function downloadTxt(text, filename = 'text.txt') {
+            if (!text) {
+                showToast('No text to download.', 'error');
+                return;
+            }
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Downloaded successfully!');
+        }
+
+        // ================================================================
+        // TAB SWITCHING
+        // ================================================================
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ================================================================
+        // THEME TOGGLE
+        // ================================================================
+        function initTheme() {
+            const toggle = document.getElementById('themeToggle');
+            const icon = document.getElementById('themeIcon');
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = stored || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+            icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+            toggle.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                icon.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+
+        // ================================================================
+        // MOBILE MENU
+        // ================================================================
+        function initMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            hamburger.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('open');
+                hamburger.classList.toggle('active');
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // ================================================================
+        // NAVBAR SCROLL
+        // ================================================================
+        function initNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                navbar.classList.toggle('scrolled', window.pageYOffset > 20);
+            });
+        }
+
+        // ================================================================
+        // WORD COUNTER
+        // ================================================================
+        const wcText = document.getElementById('wcText');
+        const wcWords = document.getElementById('wcWords');
+        const wcChars = document.getElementById('wcChars');
+        const wcCharsNoSpace = document.getElementById('wcCharsNoSpace');
+        const wcSentences = document.getElementById('wcSentences');
+        const wcParagraphs = document.getElementById('wcParagraphs');
+        const wcReadingTime = document.getElementById('wcReadingTime');
+        const wcSpeakingTime = document.getElementById('wcSpeakingTime');
+        const wcPages = document.getElementById('wcPages');
+        const wcRepeated = document.getElementById('wcRepeated');
+        const wcDensity = document.getElementById('wcDensity');
+
+        // Load saved text
+        const savedText = localStorage.getItem('toolnova_wc_text') || '';
+        if (savedText) {
+            wcText.value = savedText;
+        }
+
+        function updateWordCounter() {
+            const text = wcText.value;
+            localStorage.setItem('toolnova_wc_text', text);
+
+            // Words
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            wcWords.textContent = words;
+
+            // Characters with spaces
+            wcChars.textContent = text.length;
+
+            // Characters without spaces
+            const noSpace = text.replace(/\s/g, '').length;
+            wcCharsNoSpace.textContent = noSpace;
+
+            // Sentences (split by . ! ?)
+            const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim().length > 0).length : 0;
+            wcSentences.textContent = sentences;
+
+            // Paragraphs (split by double newline)
+            const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length : 0;
+            wcParagraphs.textContent = paragraphs;
+
+            // Reading time (words / 200 per minute)
+            const readingMin = words > 0 ? Math.max(1, Math.round(words / 200)) : 0;
+            wcReadingTime.textContent = readingMin + ' min';
+
+            // Speaking time (words / 150 per minute)
+            const speakingMin = words > 0 ? Math.max(1, Math.round(words / 150)) : 0;
+            wcSpeakingTime.textContent = speakingMin + ' min';
+
+            // Pages (words / 300 per page)
+            const pages = words > 0 ? Math.round((words / 300) * 10) / 10 : 0;
+            wcPages.textContent = pages;
+
+            // Most repeated word
+            if (words > 0) {
+                const wordCounts = {};
+                const wordList = text.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) || [];
+                wordList.forEach(w => {
+                    wordCounts[w] = (wordCounts[w] || 0) + 1;
+                });
+                let maxWord = '';
+                let maxCount = 0;
+                for (const [w, c] of Object.entries(wordCounts)) {
+                    if (c > maxCount && w.length > 2) {
+                        maxCount = c;
+                        maxWord = w;
+                    }
+                }
+                wcRepeated.textContent = maxWord ? `${maxWord} (${maxCount}x)` : '—';
+                // Keyword density
+                const total = wordList.length;
+                const density = total > 0 ? Math.round((maxCount / total) * 100) : 0;
+                wcDensity.textContent = density + '%';
+            } else {
+                wcRepeated.textContent = '—';
+                wcDensity.textContent = '0%';
+            }
+        }
+
+        wcText.addEventListener('input', updateWordCounter);
+        updateWordCounter();
+
+        // Word Counter Actions
+        document.getElementById('wcCopyBtn').addEventListener('click', () => {
+            copyText(wcText.value, 'Copied text:');
+        });
+
+        document.getElementById('wcClearBtn').addEventListener('click', () => {
+            wcText.value = '';
+            localStorage.setItem('toolnova_wc_text', '');
+            updateWordCounter();
+            showToast('Cleared');
+        });
+
+        document.getElementById('wcDownloadBtn').addEventListener('click', () => {
+            const text = wcText.value;
+            if (!text) { showToast('No text to download.', 'error'); return; }
+            downloadTxt(text, 'word_count.txt');
+        });
+
+        // ================================================================
+        // CASE CONVERTER
+        // ================================================================
+        const ccText = document.getElementById('ccText');
+        let selectedCase = 'uppercase';
+
+        document.querySelectorAll('.case-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.case-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedCase = btn.dataset.case;
+            });
+        });
+        // Default: activate first
+        document.querySelector('.case-btn').classList.add('active');
+
+        function applyCase(text, caseType) {
+            if (!text) return '';
+            switch (caseType) {
+                case 'uppercase':
+                    return text.toUpperCase();
+                case 'lowercase':
+                    return text.toLowerCase();
+                case 'title':
+                    return text.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+                case 'sentence':
+                    return text.replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+                case 'capitalize':
+                    return text.replace(/\b\w/g, c => c.toUpperCase());
+                case 'toggle':
+                    return text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+                case 'inverse':
+                    return text.split('').map(c => {
+                        if (c >= 'a' && c <= 'z') return c.toUpperCase();
+                        if (c >= 'A' && c <= 'Z') return c.toLowerCase();
+                        return c;
+                    }).join('');
+                case 'reverse':
+                    return text.split('').reverse().join('');
+                case 'reverseWords':
+                    return text.split(/\s+/).reverse().join(' ');
+                case 'trim':
+                    return text.replace(/\s+/g, ' ').trim();
+                case 'removeEmpty':
+                    return text.split('\n').filter(line => line.trim().length > 0).join('\n');
+                case 'dedupe':
+                    const lines = text.split('\n').filter(line => line.trim().length > 0);
+                    const seen = new Set();
+                    return lines.filter(line => {
+                        const key = line.trim();
+                        if (seen.has(key)) return false;
+                        seen.add(key);
+                        return true;
+                    }).join('\n');
+                case 'sortAsc':
+                    return text.split('\n').filter(line => line.trim().length > 0).sort().join('\n');
+                case 'sortDesc':
+                    return text.split('\n').filter(line => line.trim().length > 0).sort().reverse().join('\n');
+                default:
+                    return text;
+            }
+        }
+
+        document.getElementById('ccConvertBtn').addEventListener('click', () => {
+            const input = ccText.value;
+            if (!input) {
+                showToast('Please enter some text first.', 'error');
+                return;
+            }
+            const result = applyCase(input, selectedCase);
+            ccText.value = result;
+            showToast(`Converted to ${selectedCase}`);
+        });
+
+        // Also convert on double-click case button (quick apply)
+        document.querySelectorAll('.case-btn').forEach(btn => {
+            btn.addEventListener('dblclick', () => {
+                const input = ccText.value;
+                if (!input) { showToast('Please enter some text first.', 'error'); return; }
+                const result = applyCase(input, btn.dataset.case);
+                ccText.value = result;
+                showToast(`Converted to ${btn.dataset.case}`);
+            });
+        });
+
+        document.getElementById('ccCopyBtn').addEventListener('click', () => {
+            copyText(ccText.value, 'Copied:');
+        });
+
+        document.getElementById('ccClearBtn').addEventListener('click', () => {
+            ccText.value = '';
+            showToast('Cleared');
+        });
+
+        document.getElementById('ccDownloadBtn').addEventListener('click', () => {
+            const text = ccText.value;
+            if (!text) { showToast('No text to download.', 'error'); return; }
+            downloadTxt(text, 'converted_text.txt');
+        });
+
+        // ================================================================
+        // LOREM IPSUM GENERATOR
+        // ================================================================
+        const loremType = document.getElementById('loremType');
+        const loremAmount = document.getElementById('loremAmount');
+        const loremStartWith = document.getElementById('loremStartWith');
+        const loremRandom = document.getElementById('loremRandom');
+        const loremOutput = document.getElementById('loremOutput');
+
+        const loremWords = [
+            'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
+            'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore',
+            'magna', 'aliqua', 'ut', 'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud',
+            'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea',
+            'commodo', 'consequat', 'duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit',
+            'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla',
+            'pariatur', 'excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident',
+            'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id',
+            'est', 'laborum', 'fugiat', 'dolor', 'facilis', 'expedita', 'distinctio',
+            'nam', 'libero', 'tempore', 'cum', 'soluta', 'nobis', 'est', 'eligendi',
+            'optio', 'cumque', 'nihil', 'impedit', 'quo', 'minus', 'id', 'quod', 'maxime',
+            'placeat', 'facere', 'possimus', 'omnis', 'voluptas', 'assumenda', 'est',
+            'omnis', 'dolor', 'repellendus', 'temporibus', 'autem', 'quibusdam', 'et',
+            'aut', 'consequatur', 'vel', 'illum', 'qui', 'dolorem', 'eum', 'fugiat',
+            'quo', 'voluptas', 'nulla', 'pariatur', 'vero', 'eos', 'et', 'accusamus',
+            'et', 'iusto', 'odio', 'dignissimos', 'ducimus', 'qui', 'blanditiis',
+            'praesentium', 'laudantium', 'totam', 'rem', 'voluptatum', 'deleniti',
+            'atque', 'corrupti', 'quos', 'dolores', 'et', 'quas', 'molestias',
+            'excepturi', 'sint', 'occaecati', 'cupiditate', 'non', 'provident',
+            'similique', 'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt',
+            'mollitia', 'animi', 'id', 'est', 'laborum', 'et', 'dolorum', 'fuga',
+            'et', 'harum', 'quidem', 'rerum', 'facilis', 'est', 'et', 'expedita',
+            'distinctio', 'nam', 'libero', 'tempore', 'cum', 'soluta', 'nobis',
+            'est', 'eligendi', 'optio', 'cumque', 'nihil', 'impedit', 'quo'
+        ];
+
+        function getRandomWords(count) {
+            const result = [];
+            const array = new Uint32Array(count);
+            crypto.getRandomValues(array);
+            for (let i = 0; i < count; i++) {
+                result.push(loremWords[array[i] % loremWords.length]);
+            }
+            return result;
+        }
+
+        function getRandomSentences(count) {
+            const sentences = [];
+            for (let i = 0; i < count; i++) {
+                const wordCount = Math.floor(Math.random() * 12) + 5;
+                const words = getRandomWords(wordCount);
+                let sentence = words.join(' ');
+                sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1) + '.';
+                sentences.push(sentence);
+            }
+            return sentences;
+        }
+
+        function getRandomParagraphs(count) {
+            const paragraphs = [];
+            for (let i = 0; i < count; i++) {
+                const sentenceCount = Math.floor(Math.random() * 5) + 3;
+                const sentences = getRandomSentences(sentenceCount);
+                paragraphs.push(sentences.join(' '));
+            }
+            return paragraphs;
+        }
+
+        function generateLorem() {
+            const type = loremType.value;
+            let amount = parseInt(loremAmount.value) || 3;
+            if (amount < 1) amount = 1;
+            if (amount > 100) amount = 100;
+            loremAmount.value = amount;
+
+            let result = '';
+            const startWithLorem = loremStartWith.checked;
+            const randomMode = loremRandom.checked;
+
+            if (type === 'words') {
+                const words = getRandomWords(amount);
+                result = words.join(' ');
+                if (startWithLorem && amount >= 2) {
+                    result = 'lorem ipsum ' + words.slice(2).join(' ');
+                }
+                result = result.charAt(0).toUpperCase() + result.slice(1) + '.';
+            } else if (type === 'sentences') {
+                let sentences = [];
+                if (randomMode) {
+                    // Random sentence lengths
+                    for (let i = 0; i < amount; i++) {
+                        const wc = Math.floor(Math.random() * 10) + 4;
+                        const words = getRandomWords(wc);
+                        let s = words.join(' ');
+                        s = s.charAt(0).toUpperCase() + s.slice(1) + '.';
+                        sentences.push(s);
+                    }
+                } else {
+                    sentences = getRandomSentences(amount);
+                }
+                if (startWithLorem && sentences.length > 0) {
+                    const firstWords = sentences[0].split(' ');
+                    if (firstWords.length >= 2) {
+                        firstWords[0] = 'Lorem';
+                        firstWords[1] = 'ipsum';
+                        sentences[0] = firstWords.join(' ');
+                    }
+                }
+                result = sentences.join(' ');
+            } else if (type === 'paragraphs') {
+                let paragraphs = [];
+                if (randomMode) {
+                    for (let i = 0; i < amount; i++) {
+                        const sc = Math.floor(Math.random() * 5) + 2;
+                        const sentences = getRandomSentences(sc);
+                        paragraphs.push(sentences.join(' '));
+                    }
+                } else {
+                    paragraphs = getRandomParagraphs(amount);
+                }
+                if (startWithLorem && paragraphs.length > 0) {
+                    const firstSentences = paragraphs[0].split('. ');
+                    if (firstSentences.length > 0) {
+                        const words = firstSentences[0].split(' ');
+                        if (words.length >= 2) {
+                            words[0] = 'Lorem';
+                            words[1] = 'ipsum';
+                            firstSentences[0] = words.join(' ');
+                            paragraphs[0] = firstSentences.join('. ');
+                        }
+                    }
+                }
+                result = paragraphs.join('\n\n');
+            }
+
+            loremOutput.textContent = result;
+            loremOutput.classList.remove('placeholder');
+        }
+
+        document.getElementById('loremGenerateBtn').addEventListener('click', generateLorem);
+        document.getElementById('loremRegenerateBtn').addEventListener('click', generateLorem);
+
+        // Auto-generate on load
+        setTimeout(generateLorem, 100);
+
+        document.getElementById('loremCopyBtn').addEventListener('click', () => {
+            const text = loremOutput.textContent;
+            if (!text || text.includes('Click Generate')) {
+                showToast('Nothing to copy. Generate some text first.', 'error');
+                return;
+            }
+            copyText(text, 'Copied:');
+        });
+
+        document.getElementById('loremDownloadBtn').addEventListener('click', () => {
+            const text = loremOutput.textContent;
+            if (!text || text.includes('Click Generate')) {
+                showToast('Nothing to download. Generate some text first.', 'error');
+                return;
+            }
+            downloadTxt(text, 'lorem_ipsum.txt');
+        });
+
+        document.getElementById('loremClearBtn').addEventListener('click', () => {
+            loremOutput.innerHTML = '<span class="placeholder">Click Generate to create Lorem Ipsum text.</span>';
+            showToast('Cleared');
+        });
+
+        // ================================================================
+        // KEYBOARD SHORTCUTS
+        // ================================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+            // Ctrl+Enter to generate/convert
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                const activeTab = document.querySelector('.tab-panel.active');
+                if (activeTab) {
+                    if (activeTab.id === 'panel-wordcounter') {
+                        // nothing
+                    } else if (activeTab.id === 'panel-caseconverter') {
+                        document.getElementById('ccConvertBtn').click();
+                    } else if (activeTab.id === 'panel-loremipsum') {
+                        document.getElementById('loremGenerateBtn').click();
+                    }
+                }
+            }
+
+            // Escape to clear
+            if (e.key === 'Escape') {
+                const activeTab = document.querySelector('.tab-panel.active');
+                if (activeTab) {
+                    if (activeTab.id === 'panel-wordcounter') {
+                        document.getElementById('wcClearBtn').click();
+                    } else if (activeTab.id === 'panel-caseconverter') {
+                        document.getElementById('ccClearBtn').click();
+                    } else if (activeTab.id === 'panel-loremipsum') {
+                        document.getElementById('loremClearBtn').click();
+                    }
+                }
+            }
+        });
+
+        // ================================================================
+        // INIT
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initMenu();
+            initNavbarScroll();
+        });
+    </script>
+
+</body>
+</html>
