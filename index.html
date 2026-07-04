@@ -331,6 +331,14 @@
             align-items: center;
             gap: 8px;
             flex-shrink: 0;
+            position: relative;
+        }
+
+        /* ===== SEARCH WRAPPER (for dropdown positioning) ===== */
+        .search-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
         }
 
         .nav-search {
@@ -364,6 +372,114 @@
             flex-shrink: 0;
             display: flex;
             align-items: center;
+        }
+
+        /* ===== AUTOCOMPLETE DROPDOWN ===== */
+        .autocomplete-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            min-width: 280px;
+            background: var(--bg-nav);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            padding: 6px 0;
+            max-height: 360px;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+            visibility: hidden;
+            z-index: 9999;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
+        .autocomplete-dropdown.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            visibility: visible;
+        }
+        .autocomplete-dropdown::-webkit-scrollbar {
+            width: 5px;
+        }
+        .autocomplete-dropdown::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .autocomplete-dropdown::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        .autocomplete-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            border-bottom: 1px solid transparent;
+            min-height: 48px;
+        }
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+        .autocomplete-item:hover,
+        .autocomplete-item.active {
+            background: var(--bg-input);
+            border-color: var(--border-color);
+        }
+        .autocomplete-item .item-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            width: 28px;
+            text-align: center;
+        }
+        .autocomplete-item .item-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+        }
+        .autocomplete-item .item-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+        .autocomplete-item .item-name mark {
+            background: transparent;
+            color: var(--accent);
+            font-weight: 700;
+            padding: 0;
+        }
+        .autocomplete-item .item-category {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-weight: 500;
+            margin-top: 1px;
+        }
+        .autocomplete-item .item-category mark {
+            background: transparent;
+            color: var(--accent);
+            font-weight: 700;
+            padding: 0;
+        }
+
+        .autocomplete-empty {
+            padding: 16px 18px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
         }
 
         .theme-toggle {
@@ -1065,6 +1181,11 @@
             .nav-search input {
                 font-size: 0.8rem;
             }
+            .autocomplete-dropdown {
+                min-width: 200px;
+                left: 0;
+                right: auto;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1107,6 +1228,11 @@
             }
             .nav-search input {
                 min-width: 40px;
+            }
+            .autocomplete-dropdown {
+                min-width: 180px;
+                left: 0;
+                right: auto;
             }
         }
 
@@ -1170,6 +1296,27 @@
             .logo {
                 font-size: 1.2rem;
             }
+            .autocomplete-dropdown {
+                min-width: 160px;
+                left: 0;
+                right: auto;
+                max-height: 280px;
+            }
+            .autocomplete-item {
+                padding: 8px 14px;
+                font-size: 0.82rem;
+                min-height: 40px;
+            }
+            .autocomplete-item .item-icon {
+                font-size: 1rem;
+                width: 22px;
+            }
+            .autocomplete-item .item-name {
+                font-size: 0.82rem;
+            }
+            .autocomplete-item .item-category {
+                font-size: 0.6rem;
+            }
         }
 
         /* ===== Lazy Load ===== */
@@ -1218,11 +1365,15 @@
             </ul>
 
             <div class="nav-actions">
-                <div class="nav-search" role="search">
-                    <span class="search-icon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    </span>
-                    <input type="search" id="searchInput" placeholder="Search tools..." aria-label="Search tools" autocomplete="off" />
+                <div class="search-wrapper">
+                    <div class="nav-search" role="search">
+                        <span class="search-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        </span>
+                        <input type="search" id="searchInput" placeholder="Search tools..." aria-label="Search tools" autocomplete="off" />
+                    </div>
+                    <!-- ===== AUTOCOMPLETE DROPDOWN ===== -->
+                    <div class="autocomplete-dropdown" id="autocompleteDropdown" role="listbox"></div>
                 </div>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
                     <span id="themeIcon">🌙</span>
@@ -1489,7 +1640,6 @@
 
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
-            // Keep the no-results element as the last child
             const noResults = grid.querySelector('#noSearchResults');
             grid.innerHTML = '';
             toolsData.forEach((t, i) => {
@@ -1507,7 +1657,6 @@
                 `;
                 grid.appendChild(card);
             });
-            // Re-append the no-results element
             if (noResults) {
                 grid.appendChild(noResults);
             } else {
@@ -1560,19 +1709,173 @@
         }
 
         // ================================================================
-        // SEARCH FUNCTIONALITY (UPGRADED)
+        // SEARCH + AUTOCOMPLETE (UPGRADED)
         // ================================================================
 
-        function initSearch() {
+        function initSearchAndAutocomplete() {
             const searchInput = document.getElementById('searchInput');
+            const dropdown = document.getElementById('autocompleteDropdown');
             const toolsGrid = document.getElementById('toolsGrid');
             const noResults = document.getElementById('noSearchResults');
 
-            if (!searchInput || !toolsGrid) return;
+            if (!searchInput || !dropdown || !toolsGrid) return;
 
             let searchTimeout = null;
+            let currentSuggestions = [];
+            let selectedIndex = -1;
+            let isDropdownOpen = false;
 
-            function performSearch(query) {
+            // Helper: highlight matches
+            function highlightMatch(text, query) {
+                if (!query || query.length === 0) return text;
+                const q = query.toLowerCase();
+                const lower = text.toLowerCase();
+                const idx = lower.indexOf(q);
+                if (idx === -1) return text;
+                const before = text.slice(0, idx);
+                const match = text.slice(idx, idx + q.length);
+                const after = text.slice(idx + q.length);
+                return before + '<mark>' + match + '</mark>' + after;
+            }
+
+            // Get suggestions (max 8)
+            function getSuggestions(query) {
+                const q = query.toLowerCase().trim();
+                if (q === '') return [];
+
+                const results = [];
+                const seen = new Set();
+
+                for (const tool of toolsData) {
+                    const nameLower = tool.name.toLowerCase();
+                    const catLower = tool.category.toLowerCase();
+
+                    let score = 0;
+                    let matchType = '';
+
+                    // Exact name match
+                    if (nameLower === q) { score = 100;
+                        matchType = 'name'; }
+                    // Name starts with query
+                    else if (nameLower.startsWith(q)) { score = 80;
+                        matchType = 'name'; }
+                    // Name includes query
+                    else if (nameLower.includes(q)) { score = 60;
+                        matchType = 'name'; }
+                    // Category starts with query
+                    else if (catLower.startsWith(q)) { score = 40;
+                        matchType = 'category'; }
+                    // Category includes query
+                    else if (catLower.includes(q)) { score = 20;
+                        matchType = 'category'; }
+
+                    if (score > 0) {
+                        const key = tool.name + '|' + tool.category;
+                        if (!seen.has(key)) {
+                            seen.add(key);
+                            results.push({
+                                ...tool,
+                                score,
+                                matchType,
+                                nameLower,
+                                catLower
+                            });
+                        }
+                    }
+                }
+
+                // Sort by score descending, then by name
+                results.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+
+                // Return max 8
+                return results.slice(0, 8);
+            }
+
+            // Render dropdown
+            function renderDropdown(suggestions, query) {
+                dropdown.innerHTML = '';
+
+                if (!suggestions || suggestions.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'autocomplete-empty';
+                    empty.textContent = 'No suggestions found';
+                    dropdown.appendChild(empty);
+                    dropdown.classList.add('open');
+                    isDropdownOpen = true;
+                    selectedIndex = -1;
+                    return;
+                }
+
+                suggestions.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'autocomplete-item' + (index === selectedIndex ? ' active' : '');
+                    div.setAttribute('role', 'option');
+                    div.setAttribute('data-index', index);
+                    div.setAttribute('data-link', item.link);
+
+                    const iconSpan = document.createElement('span');
+                    iconSpan.className = 'item-icon';
+                    iconSpan.textContent = item.icon;
+
+                    const infoDiv = document.createElement('div');
+                    infoDiv.className = 'item-info';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'item-name';
+                    nameSpan.innerHTML = highlightMatch(item.name, query);
+
+                    const catSpan = document.createElement('span');
+                    catSpan.className = 'item-category';
+                    catSpan.innerHTML = highlightMatch(item.category, query);
+
+                    infoDiv.appendChild(nameSpan);
+                    infoDiv.appendChild(catSpan);
+                    div.appendChild(iconSpan);
+                    div.appendChild(infoDiv);
+
+                    // Click handler
+                    div.addEventListener('mousedown', function(e) {
+                        e.preventDefault(); // prevent input blur
+                        const link = this.dataset.link;
+                        if (link) {
+                            window.location.href = link;
+                        }
+                    });
+
+                    // Hover sets active
+                    div.addEventListener('mouseenter', function() {
+                        const idx = parseInt(this.dataset.index);
+                        setActiveIndex(idx);
+                    });
+
+                    dropdown.appendChild(div);
+                });
+
+                dropdown.classList.add('open');
+                isDropdownOpen = true;
+                selectedIndex = -1; // reset selection when re-rendered
+            }
+
+            function setActiveIndex(index) {
+                const items = dropdown.querySelectorAll('.autocomplete-item');
+                items.forEach((el, i) => {
+                    el.classList.toggle('active', i === index);
+                });
+                selectedIndex = index;
+                // Scroll into view
+                if (index >= 0 && index < items.length) {
+                    items[index].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            }
+
+            function closeDropdown() {
+                dropdown.classList.remove('open');
+                isDropdownOpen = false;
+                selectedIndex = -1;
+            }
+
+            // Perform live filtering (existing behavior)
+            function performLiveFilter(query) {
                 const q = query.toLowerCase().trim();
                 const cards = toolsGrid.querySelectorAll('.tool-card:not(#noSearchResults)');
                 let foundCount = 0;
@@ -1590,7 +1893,6 @@
                     }
                 });
 
-                // Show/hide no results message
                 if (noResults) {
                     if (q !== '' && foundCount === 0) {
                         noResults.style.display = 'block';
@@ -1599,44 +1901,114 @@
                     }
                 }
 
-                // Return first visible card for Enter key handling
+                // Return first visible for Enter key
                 const firstVisible = cards.find(card => card.style.display !== 'none');
                 return firstVisible;
             }
 
-            function handleSearchInput() {
+            // Main search handler
+            function handleSearch() {
                 const query = searchInput.value;
+                const q = query.trim();
+
+                // 1. Live filter (existing)
+                performLiveFilter(query);
+
+                // 2. Autocomplete suggestions
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
-                    performSearch(query);
-                }, 150);
+                    const suggestions = getSuggestions(q);
+                    currentSuggestions = suggestions;
+                    if (q.length > 0 && suggestions.length > 0) {
+                        renderDropdown(suggestions, q);
+                    } else if (q.length > 0 && suggestions.length === 0) {
+                        // Show "no suggestions" but keep dropdown open
+                        renderDropdown([], q);
+                    } else {
+                        closeDropdown();
+                    }
+                }, 120);
             }
 
-            // Input event with debounce
-            searchInput.addEventListener('input', handleSearchInput);
+            // ---- Event listeners ----
 
-            // Enter key: open first matching tool
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const query = this.value;
-                    const cards = toolsGrid.querySelectorAll('.tool-card:not(#noSearchResults)');
-                    // Find first visible card
-                    let firstMatch = null;
-                    for (const card of cards) {
-                        if (card.style.display !== 'none') {
-                            firstMatch = card;
-                            break;
-                        }
-                    }
-                    if (firstMatch) {
-                        e.preventDefault();
-                        // Navigate to the tool link
-                        window.location.href = firstMatch.href;
+            searchInput.addEventListener('input', handleSearch);
+
+            searchInput.addEventListener('focus', function() {
+                const q = this.value.trim();
+                if (q.length > 0) {
+                    const suggestions = getSuggestions(q);
+                    currentSuggestions = suggestions;
+                    if (suggestions.length > 0) {
+                        renderDropdown(suggestions, q);
+                    } else {
+                        renderDropdown([], q);
                     }
                 }
             });
 
-            // Also handle the search icon click to focus the input
+            // Keyboard navigation
+            searchInput.addEventListener('keydown', function(e) {
+                const items = dropdown.querySelectorAll('.autocomplete-item');
+                const total = items.length;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (!isDropdownOpen && this.value.trim().length > 0) {
+                        // Reopen if closed
+                        const suggestions = getSuggestions(this.value.trim());
+                        currentSuggestions = suggestions;
+                        if (suggestions.length > 0) renderDropdown(suggestions, this.value.trim());
+                        else renderDropdown([], this.value.trim());
+                        return;
+                    }
+                    const next = selectedIndex + 1;
+                    if (next < total) {
+                        setActiveIndex(next);
+                    } else {
+                        setActiveIndex(0);
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (!isDropdownOpen) return;
+                    const prev = selectedIndex - 1;
+                    if (prev >= 0) {
+                        setActiveIndex(prev);
+                    } else {
+                        setActiveIndex(total - 1);
+                    }
+                } else if (e.key === 'Enter') {
+                    if (selectedIndex >= 0 && selectedIndex < total) {
+                        e.preventDefault();
+                        const item = items[selectedIndex];
+                        const link = item ? item.dataset.link : null;
+                        if (link) {
+                            window.location.href = link;
+                        }
+                    } else {
+                        // Fallback: first visible tool card
+                        const firstVisible = performLiveFilter(this.value);
+                        if (firstVisible) {
+                            e.preventDefault();
+                            window.location.href = firstVisible.href;
+                        }
+                    }
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    closeDropdown();
+                    searchInput.blur();
+                }
+            });
+
+            // Click outside
+            document.addEventListener('click', function(e) {
+                const wrapper = document.querySelector('.search-wrapper');
+                if (wrapper && !wrapper.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            // Search icon click focuses input
             const searchIcon = document.querySelector('.nav-search .search-icon');
             if (searchIcon) {
                 searchIcon.addEventListener('click', function() {
@@ -1644,11 +2016,17 @@
                 });
             }
 
-            // Expose the search function for external use
-            window.__toolnovaSearch = performSearch;
+            // Expose for URL param handling
+            window.__toolnovaSearch = function(query) {
+                if (searchInput) {
+                    searchInput.value = query;
+                    handleSearch();
+                }
+            };
 
-            // Initial state: show all tools
-            performSearch('');
+            // Initial: show all
+            performLiveFilter('');
+            closeDropdown();
         }
 
         // ================================================================
@@ -1794,7 +2172,7 @@
             initNewsletter();
             initNavbarScroll();
             initActiveNav();
-            initSearch(); // <-- upgraded search
+            initSearchAndAutocomplete();
 
             // smooth anchor scroll
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1811,19 +2189,18 @@
                 });
             });
 
-            // If there's a search param in URL, populate search
+            // URL search param
             const urlParams = new URLSearchParams(window.location.search);
             const searchQuery = urlParams.get('search');
             if (searchQuery) {
                 const searchInput = document.getElementById('searchInput');
                 if (searchInput) {
                     searchInput.value = searchQuery;
-                    // Trigger search after tools are rendered
                     setTimeout(() => {
                         if (window.__toolnovaSearch) {
                             window.__toolnovaSearch(searchQuery);
                         }
-                    }, 100);
+                    }, 150);
                 }
             }
         });
