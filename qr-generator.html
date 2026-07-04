@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code &amp; Barcode Generator - Free Online Tool | ToolNova</title>
+    <meta name="description" content="Generate QR codes and barcodes online for free. Supports text, URLs, email, phone, Wi-Fi, SMS and multiple barcode formats including Code128, EAN-13, UPC-A." />
+    <meta name="keywords" content="qr code generator, barcode generator, free qr code, online barcode, code128, ean-13, upc-a, qr generator" />
+    <link rel="canonical" href="https://toolnova.com/qr-barcode-generator.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="QR Code &amp; Barcode Generator - Free Online Tool | ToolNova" />
+    <meta property="og:description" content="Generate QR codes and barcodes online for free. Supports text, URLs, email, phone, Wi-Fi, SMS and multiple barcode formats." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://toolnova.com/qr-barcode-generator.html" />
+    <meta property="og:image" content="https://toolnova.com/og-qr-barcode.jpg" />
+    <meta property="og:site_name" content="ToolNova" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="QR Code &amp; Barcode Generator - Free Online Tool" />
+    <meta name="twitter:description" content="Generate QR codes and barcodes online for free. Multiple formats supported." />
+    <meta name="twitter:image" content="https://toolnova.com/twitter-qr-barcode.jpg" />
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "ToolNova QR & Barcode Generator",
+            "url": "https://toolnova.com/qr-barcode-generator.html",
+            "description": "Generate QR codes and barcodes online for free. Supports text, URLs, email, phone, Wi-Fi, SMS and multiple barcode formats.",
+            "applicationCategory": "Utility",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolnova.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://toolnova.com/tools" },
+                { "@type": "ListItem", "position": 3, "name": "QR & Barcode Generator", "item": "https://toolnova.com/qr-barcode-generator.html" }
+            ]
+        }
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsBarcode/3.11.6/JsBarcode.all.min.js">
+    </script>
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #f8faff;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #f0f4ff;
+            --bg-nav: rgba(255, 255, 255, 0.80);
+            --text-primary: #0b1a33;
+            --text-secondary: #2d3a4f;
+            --text-muted: #6b7a8f;
+            --border-color: #e6edf5;
+            --shadow-sm: 0 2px 12px rgba(11, 26, 51, 0.06);
+            --shadow-md: 0 8px 32px rgba(11, 26, 51, 0.08);
+            --shadow-lg: 0 16px 56px rgba(11, 26, 51, 0.10);
+            --shadow-hover: 0 20px 60px rgba(11, 26, 51, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-full: 60px;
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-dark: #1d4ed8;
+            --accent-glow: rgba(37, 99, 235, 0.20);
+            --gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --gradient-soft: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --nav-height: 72px;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a1628;
+            --bg-secondary: #111f3a;
+            --bg-card: #15243f;
+            --bg-input: #1a2a4a;
+            --bg-nav: rgba(10, 22, 40, 0.88);
+            --text-primary: #f0f4ff;
+            --text-secondary: #c8d2e6;
+            --text-muted: #8a9bb5;
+            --border-color: #1e3150;
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.30);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.40);
+            --shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.50);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.60);
+            --accent-glow: rgba(59, 130, 246, 0.25);
+            --gradient-soft: linear-gradient(135deg, #0f2847 0%, #1a3a66 100%);
+        }
+
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.35s ease, color 0.35s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: var(--nav-height);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        ul {
+            list-style: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button {
+            cursor: pointer;
+            font-family: var(--font);
+            border: none;
+            background: none;
+            color: inherit;
+        }
+        input,
+        select,
+        textarea {
+            font-family: var(--font);
+            border: none;
+            outline: none;
+            background: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            white-space: nowrap;
+            min-height: 48px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            border-color: var(--accent);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            background: var(--bg-input);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(34, 197, 94, 0.35);
+        }
+
+        .btn-sm {
+            padding: 8px 18px;
+            font-size: 0.8rem;
+            min-height: 36px;
+        }
+
+        .btn-icon {
+            padding: 8px 12px;
+            min-height: 40px;
+            min-width: 40px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        .btn-icon:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--nav-height);
+            background: var(--bg-nav);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            display: flex;
+            align-items: center;
+        }
+        .navbar.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .logo span {
+            font-weight: 300;
+            -webkit-text-fill-color: var(--text-muted);
+            background: none;
+        }
+        [data-theme="dark"] .logo span {
+            -webkit-text-fill-color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle {
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        .theme-toggle:hover {
+            background: var(--bg-input);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 6px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .hamburger:hover {
+            background: var(--bg-input);
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== Breadcrumb ===== */
+        .breadcrumb {
+            padding: 20px 0 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .breadcrumb a {
+            color: var(--accent);
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 6px;
+        }
+
+        /* ===== Tool Section ===== */
+        .tool-section {
+            padding: 32px 0 60px;
+        }
+
+        .tool-header {
+            margin-bottom: 32px;
+        }
+        .tool-header h1 {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .tool-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 600px;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            box-shadow: var(--shadow-sm);
+        }
+        .tabs .tab-btn {
+            padding: 12px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            white-space: nowrap;
+            color: var(--text-secondary);
+            background: transparent;
+            flex: 1;
+            text-align: center;
+        }
+        .tabs .tab-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-input);
+        }
+        .tabs .tab-btn.active {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Tool Panels ===== */
+        .tool-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            box-shadow: var(--shadow-sm);
+            transition: background 0.35s ease, border-color 0.35s ease;
+        }
+
+        .tool-panel .panel-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .form-group label .required {
+            color: var(--danger);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            resize: vertical;
+            min-height: 48px;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+        .form-group textarea {
+            min-height: 80px;
+        }
+        .form-group .hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        /* ===== Preview Area ===== */
+        .preview-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+            background: var(--bg-input);
+            border-radius: var(--radius-sm);
+            border: 2px dashed var(--border-color);
+            min-height: 200px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .preview-area.has-content {
+            border-style: solid;
+            border-color: var(--accent);
+            background: var(--bg-card);
+        }
+        .preview-area .placeholder {
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .preview-area .placeholder .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .preview-area #qrCodeContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .preview-area #qrCodeContainer canvas,
+        .preview-area #qrCodeContainer img {
+            max-width: 100%;
+            max-height: 320px;
+            border-radius: 8px;
+        }
+        .preview-area #barcodeContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            overflow: auto;
+            padding: 8px 0;
+        }
+        .preview-area #barcodeContainer svg {
+            max-width: 100%;
+            height: auto;
+            max-height: 160px;
+        }
+        .preview-area #barcodeContainer canvas {
+            max-width: 100%;
+            max-height: 160px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ===== Error / Success ===== */
+        .msg {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            display: none;
+        }
+        .msg.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.10);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+        .msg.success {
+            display: block;
+            background: rgba(34, 197, 94, 0.10);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        /* ===== Internal Links ===== */
+        .internal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+        .internal-links a {
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            background: var(--bg-input);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .internal-links a:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 48px 0 24px;
+            transition: background 0.35s ease;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .footer-brand .logo {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 240px;
+            line-height: 1.6;
+        }
+        .footer-col h5 {
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 4px 0;
+            transition: var(--transition);
+        }
+        .footer-col a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 28px;
+            }
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: var(--bg-nav);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                flex-direction: column;
+                padding: 28px 24px 32px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border-color);
+                transform: translateY(-120%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                box-shadow: var(--shadow-lg);
+                align-items: stretch;
+            }
+            .nav-links.open {
+                transform: translateY(0);
+            }
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 0;
+                text-align: center;
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+            .tool-panel {
+                padding: 20px 16px;
+            }
+            .tabs .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .tool-header h1 {
+                font-size: 1.6rem;
+            }
+            .preview-area {
+                min-height: 160px;
+                padding: 20px 12px;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .preview-actions .btn {
+                flex: 1;
+                justify-content: center;
+                min-width: 100px;
+            }
+            .internal-links {
+                padding: 16px;
+                gap: 8px;
+            }
+            .internal-links a {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .container {
+                gap: 8px;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .tabs .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                flex: 0 0 auto;
+            }
+            .tabs {
+                gap: 2px;
+                padding: 2px;
+            }
+            .preview-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .preview-actions .btn {
+                width: 100%;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px 14px;
+                font-size: 0.9rem;
+                min-height: 42px;
+            }
+            .tool-panel .panel-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== Utilities ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mt-24 {
+            margin-top: 24px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-12 {
+            margin-bottom: 12px;
+        }
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .gap-12 {
+            gap: 12px;
+        }
+        .gap-16 {
+            gap: 16px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .w-full {
+            width: 100%;
+        }
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        .items-center {
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar" id="navbar" role="banner">
+        <div class="container">
+            <a href="/" class="logo" aria-label="ToolNova home">Tool<span>Nova</span></a>
+
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="/" role="menuitem">Home</a></li>
+                <li role="none"><a href="/tools" role="menuitem" class="active">Tools</a></li>
+                <li role="none"><a href="/categories" role="menuitem">Categories</a></li>
+                <li role="none"><a href="/blog" role="menuitem">Blog</a></li>
+                <li role="none"><a href="/about" role="menuitem">About</a></li>
+                <li role="none"><a href="/contact" role="menuitem">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ===== BREADCRUMB ===== -->
+        <div class="container">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a><span>›</span>
+                <a href="/tools">Tools</a><span>›</span>
+                <span>QR &amp; Barcode Generator</span>
+            </nav>
+        </div>
+
+        <!-- ===== TOOL SECTION ===== -->
+        <section class="tool-section">
+            <div class="container">
+
+                <div class="tool-header">
+                    <h1>QR Code &amp; Barcode Generator</h1>
+                    <p>Generate QR codes and barcodes instantly in your browser. Supports text, URLs, email, phone, Wi-Fi, SMS, and multiple barcode formats.</p>
+                </div>
+
+                <!-- ===== TABS ===== -->
+                <div class="tabs" role="tablist">
+                    <button class="tab-btn active" role="tab" aria-selected="true" data-tab="qr">📱 QR Code</button>
+                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="barcode">📊 Barcode</button>
+                </div>
+
+                <!-- ===== TAB 1: QR CODE ===== -->
+                <div class="tab-content active" id="tab-qr" role="tabpanel">
+                    <div class="tool-panel">
+                        <div class="panel-title">📱 Generate QR Code</div>
+
+                        <div class="form-group">
+                            <label for="qrType">QR Code Type <span class="required">*</span></label>
+                            <select id="qrType">
+                                <option value="text">Text</option>
+                                <option value="url">URL / Website</option>
+                                <option value="email">Email</option>
+                                <option value="phone">Phone Number</option>
+                                <option value="wifi">Wi-Fi Network</option>
+                                <option value="sms">SMS</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="qrInput">Content <span class="required">*</span></label>
+                            <textarea id="qrInput" placeholder="Enter content for your QR code..." rows="2"></textarea>
+                            <div class="hint" id="qrInputHint">Enter the text or data you want to encode.</div>
+                        </div>
+
+                        <!-- Wi-Fi fields (hidden by default) -->
+                        <div id="wifiFields" style="display:none;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="wifiSsid">Network Name (SSID) <span class="required">*</span></label>
+                                    <input type="text" id="wifiSsid" placeholder="MyWiFi" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="wifiPassword">Password</label>
+                                    <input type="text" id="wifiPassword" placeholder="password123" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="wifiEncryption">Encryption</label>
+                                <select id="wifiEncryption">
+                                    <option value="WPA">WPA/WPA2</option>
+                                    <option value="WEP">WEP</option>
+                                    <option value="nopass">None (Open)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- SMS fields (hidden by default) -->
+                        <div id="smsFields" style="display:none;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="smsNumber">Phone Number <span class="required">*</span></label>
+                                    <input type="text" id="smsNumber" placeholder="+1234567890" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="smsMessage">Message</label>
+                                    <input type="text" id="smsMessage" placeholder="Hello!" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="qrSize">Size (pixels)</label>
+                                <select id="qrSize">
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                    <option value="250" selected>250</option>
+                                    <option value="300">300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="qrColor">Foreground Color</label>
+                                <input type="color" id="qrColor" value="#0b1a33" style="padding:4px;height:48px;cursor:pointer;" />
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" id="generateQrBtn">Generate QR Code</button>
+                            <button class="btn btn-outline" id="clearQrBtn">Clear</button>
+                        </div>
+
+                        <div class="msg" id="qrMsg"></div>
+
+                        <!-- QR Preview -->
+                        <div class="preview-area mt-16" id="qrPreviewArea">
+                            <div class="placeholder" id="qrPlaceholder">
+                                <span class="icon">📱</span>
+                                <p>Your QR code will appear here</p>
+                                <p style="font-size:0.8rem;color:var(--text-muted);">Enter content and click Generate</p>
+                            </div>
+                            <div id="qrCodeContainer" style="display:none;"></div>
+                        </div>
+
+                        <div class="preview-actions" id="qrActions" style="display:none;">
+                            <button class="btn btn-success btn-sm" id="downloadQrBtn">⬇️ Download PNG</button>
+                            <button class="btn btn-outline btn-sm" id="copyQrBtn">📋 Copy Content</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== TAB 2: BARCODE ===== -->
+                <div class="tab-content" id="tab-barcode" role="tabpanel">
+                    <div class="tool-panel">
+                        <div class="panel-title">📊 Generate Barcode</div>
+
+                        <div class="form-group">
+                            <label for="barcodeInput">Barcode Data <span class="required">*</span></label>
+                            <input type="text" id="barcodeInput" placeholder="Enter data for your barcode..." />
+                            <div class="hint">Enter the data to encode. Supports digits, letters, and special characters depending on format.</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="barcodeFormat">Barcode Format <span class="required">*</span></label>
+                                <select id="barcodeFormat">
+                                    <option value="CODE128">Code128</option>
+                                    <option value="EAN13">EAN-13</option>
+                                    <option value="EAN8">EAN-8</option>
+                                    <option value="UPCA">UPC-A</option>
+                                    <option value="UPCE">UPC-E</option>
+                                    <option value="CODE39">Code39</option>
+                                    <option value="ITF">ITF (Interleaved 2 of 5)</option>
+                                    <option value="CODABAR">Codabar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="barcodeWidth">Width (px)</label>
+                                <select id="barcodeWidth">
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="barcodeHeight">Height (px)</label>
+                                <select id="barcodeHeight">
+                                    <option value="60">60</option>
+                                    <option value="80">80</option>
+                                    <option value="100" selected>100</option>
+                                    <option value="120">120</option>
+                                    <option value="150">150</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="barcodeColor">Bar Color</label>
+                                <input type="color" id="barcodeColor" value="#0b1a33" style="padding:4px;height:48px;cursor:pointer;" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="barcodeShowText" checked />
+                                Show text below barcode
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" id="generateBarcodeBtn">Generate Barcode</button>
+                            <button class="btn btn-outline" id="clearBarcodeBtn">Clear</button>
+                        </div>
+
+                        <div class="msg" id="barcodeMsg"></div>
+
+                        <!-- Barcode Preview -->
+                        <div class="preview-area mt-16" id="barcodePreviewArea">
+                            <div class="placeholder" id="barcodePlaceholder">
+                                <span class="icon">📊</span>
+                                <p>Your barcode will appear here</p>
+                                <p style="font-size:0.8rem;color:var(--text-muted);">Enter data and click Generate</p>
+                            </div>
+                            <div id="barcodeContainer" style="display:none;"></div>
+                        </div>
+
+                        <div class="preview-actions" id="barcodeActions" style="display:none;">
+                            <button class="btn btn-success btn-sm" id="downloadBarcodeBtn">⬇️ Download PNG</button>
+                            <button class="btn btn-outline btn-sm" id="copyBarcodeBtn">📋 Copy Data</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== INTERNAL LINKS ===== -->
+                <div class="internal-links">
+                    <span style="font-weight:600;color:var(--text-secondary);">More Tools:</span>
+                    <a href="/image-compressor.html">Image Compressor</a>
+                    <a href="/image-resizer.html">Image Resizer</a>
+                    <a href="/jpg-to-pdf.html">JPG to PDF</a>
+                    <a href="/pdf-merge.html">PDF Merge</a>
+                    <a href="/password-generator.html">Password Generator</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">Tool<span>Nova</span></a>
+                    <p>100% free online tools for everyone. Generate, convert, compress, and more — all in your browser.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <a href="/about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/sitemap">Sitemap</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Legal</h5>
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms</a>
+                    <a href="/disclaimer">Disclaimer</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Tools</h5>
+                    <a href="/qr-barcode-generator.html">QR &amp; Barcode</a>
+                    <a href="/image-compressor.html">Image Compressor</a>
+                    <a href="/image-resizer.html">Image Resizer</a>
+                    <a href="/jpg-to-pdf.html">JPG to PDF</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <a href="/blog">Blog</a>
+                    <a href="/guides">Guides</a>
+                    <a href="/faq">FAQ</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 ToolNova. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // DOM REFS
+            // ============================================================
+
+            // Tabs
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = {
+                qr: document.getElementById('tab-qr'),
+                barcode: document.getElementById('tab-barcode')
+            };
+
+            // QR
+            const qrType = document.getElementById('qrType');
+            const qrInput = document.getElementById('qrInput');
+            const qrInputHint = document.getElementById('qrInputHint');
+            const wifiFields = document.getElementById('wifiFields');
+            const wifiSsid = document.getElementById('wifiSsid');
+            const wifiPassword = document.getElementById('wifiPassword');
+            const wifiEncryption = document.getElementById('wifiEncryption');
+            const smsFields = document.getElementById('smsFields');
+            const smsNumber = document.getElementById('smsNumber');
+            const smsMessage = document.getElementById('smsMessage');
+            const qrSize = document.getElementById('qrSize');
+            const qrColor = document.getElementById('qrColor');
+            const generateQrBtn = document.getElementById('generateQrBtn');
+            const clearQrBtn = document.getElementById('clearQrBtn');
+            const qrMsg = document.getElementById('qrMsg');
+            const qrPreviewArea = document.getElementById('qrPreviewArea');
+            const qrPlaceholder = document.getElementById('qrPlaceholder');
+            const qrCodeContainer = document.getElementById('qrCodeContainer');
+            const qrActions = document.getElementById('qrActions');
+            const downloadQrBtn = document.getElementById('downloadQrBtn');
+            const copyQrBtn = document.getElementById('copyQrBtn');
+
+            // Barcode
+            const barcodeInput = document.getElementById('barcodeInput');
+            const barcodeFormat = document.getElementById('barcodeFormat');
+            const barcodeWidth = document.getElementById('barcodeWidth');
+            const barcodeHeight = document.getElementById('barcodeHeight');
+            const barcodeColor = document.getElementById('barcodeColor');
+            const barcodeShowText = document.getElementById('barcodeShowText');
+            const generateBarcodeBtn = document.getElementById('generateBarcodeBtn');
+            const clearBarcodeBtn = document.getElementById('clearBarcodeBtn');
+            const barcodeMsg = document.getElementById('barcodeMsg');
+            const barcodePreviewArea = document.getElementById('barcodePreviewArea');
+            const barcodePlaceholder = document.getElementById('barcodePlaceholder');
+            const barcodeContainer = document.getElementById('barcodeContainer');
+            const barcodeActions = document.getElementById('barcodeActions');
+            const downloadBarcodeBtn = document.getElementById('downloadBarcodeBtn');
+            const copyBarcodeBtn = document.getElementById('copyBarcodeBtn');
+
+            // ============================================================
+            // STATE
+            // ============================================================
+
+            let currentQrData = null;
+            let currentBarcodeData = null;
+
+            // ============================================================
+            // TABS
+            // ============================================================
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    tabBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-selected', 'false');
+                    });
+                    this.classList.add('active');
+                    this.setAttribute('aria-selected', 'true');
+
+                    Object.keys(tabContents).forEach(key => {
+                        tabContents[key].classList.toggle('active', key === tab);
+                    });
+                });
+            });
+
+            // ============================================================
+            // QR TYPE CHANGE
+            // ============================================================
+
+            qrType.addEventListener('change', function() {
+                const type = this.value;
+                const hints = {
+                    text: 'Enter any text you want to encode.',
+                    url: 'Enter a full URL (e.g., https://example.com)',
+                    email: 'Enter an email address (e.g., user@example.com)',
+                    phone: 'Enter a phone number (e.g., +1234567890)',
+                    wifi: 'Enter Wi-Fi network details below.',
+                    sms: 'Enter phone number and optional message below.'
+                };
+                qrInputHint.textContent = hints[type] || 'Enter the data for your QR code.';
+
+                wifiFields.style.display = type === 'wifi' ? 'block' : 'none';
+                smsFields.style.display = type === 'sms' ? 'block' : 'none';
+
+                if (type === 'wifi') {
+                    qrInput.placeholder = 'Wi-Fi details will be built automatically';
+                    qrInput.disabled = true;
+                } else if (type === 'sms') {
+                    qrInput.placeholder = 'SMS details will be built automatically';
+                    qrInput.disabled = true;
+                } else {
+                    qrInput.placeholder = 'Enter content for your QR code...';
+                    qrInput.disabled = false;
+                }
+            });
+            qrType.dispatchEvent(new Event('change'));
+
+            // ============================================================
+            // QR GENERATE
+            // ============================================================
+
+            function getQrData() {
+                const type = qrType.value;
+                let data = '';
+
+                switch (type) {
+                    case 'text':
+                        data = qrInput.value.trim();
+                        break;
+                    case 'url':
+                        let url = qrInput.value.trim();
+                        if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+                            url = 'https://' + url;
+                        }
+                        data = url;
+                        break;
+                    case 'email':
+                        const email = qrInput.value.trim();
+                        data = email ? 'mailto:' + email : '';
+                        break;
+                    case 'phone':
+                        const phone = qrInput.value.trim();
+                        data = phone ? 'tel:' + phone : '';
+                        break;
+                    case 'wifi': {
+                        const ssid = wifiSsid.value.trim();
+                        const pass = wifiPassword.value.trim();
+                        const enc = wifiEncryption.value;
+                        if (!ssid) return '';
+                        data = 'WIFI:T:' + enc + ';S:' + ssid + ';P:' + pass + ';;';
+                        break;
+                    }
+                    case 'sms': {
+                        const num = smsNumber.value.trim();
+                        const msg = smsMessage.value.trim();
+                        if (!num) return '';
+                        data = 'smsto:' + num;
+                        if (msg) data += '?body=' + encodeURIComponent(msg);
+                        break;
+                    }
+                    default:
+                        data = qrInput.value.trim();
+                }
+                return data;
+            }
+
+            function generateQr() {
+                const data = getQrData();
+                const type = qrType.value;
+
+                if (!data) {
+                    showQrMsg('Please enter the required information.', 'error');
+                    return;
+                }
+
+                // For text/url/email/phone, check empty
+                if (['text', 'url', 'email', 'phone'].includes(type) && !qrInput.value.trim()) {
+                    showQrMsg('Please enter the required information.', 'error');
+                    return;
+                }
+                if (type === 'wifi' && !wifiSsid.value.trim()) {
+                    showQrMsg('Please enter the Wi-Fi network name (SSID).', 'error');
+                    return;
+                }
+                if (type === 'sms' && !smsNumber.value.trim()) {
+                    showQrMsg('Please enter the phone number for SMS.', 'error');
+                    return;
+                }
+
+                // Clear previous
+                qrCodeContainer.innerHTML = '';
+                qrMsg.className = 'msg';
+                qrMsg.textContent = '';
+
+                const size = parseInt(qrSize.value);
+                const color = qrColor.value;
+
+                try {
+                    new QRCode(qrCodeContainer, {
+                        text: data,
+                        width: size,
+                        height: size,
+                        colorDark: color,
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+
+                    currentQrData = data;
+                    qrPlaceholder.style.display = 'none';
+                    qrCodeContainer.style.display = 'flex';
+                    qrActions.style.display = 'flex';
+                    qrPreviewArea.classList.add('has-content');
+
+                    showQrMsg('✅ QR code generated successfully!', 'success');
+
+                } catch (err) {
+                    showQrMsg('Error generating QR code: ' + err.message, 'error');
+                }
+            }
+
+            function showQrMsg(text, type) {
+                qrMsg.textContent = text;
+                qrMsg.className = 'msg ' + type;
+            }
+
+            generateQrBtn.addEventListener('click', generateQr);
+
+            // Enter key support for QR
+            qrInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    generateQr();
+                }
+            });
+            wifiSsid.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    generateQr(); }
+            });
+            wifiPassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    generateQr(); }
+            });
+            smsNumber.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    generateQr(); }
+            });
+            smsMessage.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    generateQr(); }
+            });
+
+            // ============================================================
+            // QR CLEAR
+            // ============================================================
+
+            clearQrBtn.addEventListener('click', function() {
+                qrInput.value = '';
+                wifiSsid.value = '';
+                wifiPassword.value = '';
+                smsNumber.value = '';
+                smsMessage.value = '';
+                qrCodeContainer.innerHTML = '';
+                qrCodeContainer.style.display = 'none';
+                qrPlaceholder.style.display = 'block';
+                qrActions.style.display = 'none';
+                qrPreviewArea.classList.remove('has-content');
+                qrMsg.className = 'msg';
+                qrMsg.textContent = '';
+                currentQrData = null;
+            });
+
+            // ============================================================
+            // QR DOWNLOAD
+            // ============================================================
+
+            downloadQrBtn.addEventListener('click', function() {
+                const canvas = qrCodeContainer.querySelector('canvas');
+                if (!canvas) {
+                    showQrMsg('No QR code to download. Generate one first.', 'error');
+                    return;
+                }
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // ============================================================
+            // QR COPY
+            // ============================================================
+
+            copyQrBtn.addEventListener('click', function() {
+                if (!currentQrData) {
+                    showQrMsg('No QR code data to copy. Generate one first.', 'error');
+                    return;
+                }
+                navigator.clipboard.writeText(currentQrData).then(() => {
+                    showQrMsg('✅ Content copied to clipboard!', 'success');
+                }).catch(() => {
+                    // Fallback
+                    const textarea = document.createElement('textarea');
+                    textarea.value = currentQrData;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showQrMsg('✅ Content copied to clipboard!', 'success');
+                });
+            });
+
+            // ============================================================
+            // BARCODE GENERATE
+            // ============================================================
+
+            function generateBarcode() {
+                const data = barcodeInput.value.trim();
+                if (!data) {
+                    showBarcodeMsg('Please enter data for the barcode.', 'error');
+                    return;
+                }
+
+                const format = barcodeFormat.value;
+                const width = parseInt(barcodeWidth.value);
+                const height = parseInt(barcodeHeight.value);
+                const color = barcodeColor.value;
+                const showText = barcodeShowText.checked;
+
+                barcodeMsg.className = 'msg';
+                barcodeMsg.textContent = '';
+
+                try {
+                    barcodeContainer.innerHTML = '';
+                    barcodeContainer.style.display = 'flex';
+
+                    const svg = document.createElement('svg');
+                    svg.id = 'barcodeSvg';
+                    barcodeContainer.appendChild(svg);
+
+                    JsBarcode(svg, data, {
+                        format: format,
+                        width: width,
+                        height: height,
+                        displayValue: showText,
+                        fontSize: 16,
+                        font: 'monospace',
+                        textMargin: 4,
+                        background: '#ffffff',
+                        lineColor: color,
+                        margin: 8,
+                        valid: function(valid) {
+                            if (!valid) {
+                                showBarcodeMsg('Invalid data for the selected barcode format. Please check the format requirements.', 'error');
+                                barcodeContainer.style.display = 'none';
+                                barcodePlaceholder.style.display = 'block';
+                            }
+                        }
+                    });
+
+                    // Check if SVG has content
+                    if (svg.children.length === 0) {
+                        barcodeContainer.style.display = 'none';
+                        barcodePlaceholder.style.display = 'block';
+                        showBarcodeMsg('Invalid data for the selected barcode format.', 'error');
+                        return;
+                    }
+
+                    currentBarcodeData = data;
+                    barcodePlaceholder.style.display = 'none';
+                    barcodeContainer.style.display = 'flex';
+                    barcodeActions.style.display = 'flex';
+                    barcodePreviewArea.classList.add('has-content');
+
+                    showBarcodeMsg('✅ Barcode generated successfully!', 'success');
+
+                } catch (err) {
+                    showBarcodeMsg('Error generating barcode: ' + err.message, 'error');
+                }
+            }
+
+            function showBarcodeMsg(text, type) {
+                barcodeMsg.textContent = text;
+                barcodeMsg.className = 'msg ' + type;
+            }
+
+            generateBarcodeBtn.addEventListener('click', generateBarcode);
+
+            barcodeInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    generateBarcode();
+                }
+            });
+
+            // ============================================================
+            // BARCODE CLEAR
+            // ============================================================
+
+            clearBarcodeBtn.addEventListener('click', function() {
+                barcodeInput.value = '';
+                barcodeContainer.innerHTML = '';
+                barcodeContainer.style.display = 'none';
+                barcodePlaceholder.style.display = 'block';
+                barcodeActions.style.display = 'none';
+                barcodePreviewArea.classList.remove('has-content');
+                barcodeMsg.className = 'msg';
+                barcodeMsg.textContent = '';
+                currentBarcodeData = null;
+            });
+
+            // ============================================================
+            // BARCODE DOWNLOAD
+            // ============================================================
+
+            downloadBarcodeBtn.addEventListener('click', function() {
+                const svg = document.getElementById('barcodeSvg');
+                if (!svg || svg.children.length === 0) {
+                    showBarcodeMsg('No barcode to download. Generate one first.', 'error');
+                    return;
+                }
+
+                // Convert SVG to canvas
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                const img = new Image();
+                const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                const url = URL.createObjectURL(svgBlob);
+
+                img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    URL.revokeObjectURL(url);
+
+                    const link = document.createElement('a');
+                    link.download = 'barcode.png';
+                    link.href = canvas.toDataURL('image/png');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                img.onerror = function() {
+                    showBarcodeMsg('Failed to render barcode for download.', 'error');
+                };
+
+                img.src = url;
+            });
+
+            // ============================================================
+            // BARCODE COPY
+            // ============================================================
+
+            copyBarcodeBtn.addEventListener('click', function() {
+                if (!currentBarcodeData) {
+                    showBarcodeMsg('No barcode data to copy. Generate one first.', 'error');
+                    return;
+                }
+                navigator.clipboard.writeText(currentBarcodeData).then(() => {
+                    showBarcodeMsg('✅ Data copied to clipboard!', 'success');
+                }).catch(() => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = currentBarcodeData;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showBarcodeMsg('✅ Data copied to clipboard!', 'success');
+                });
+            });
+
+            // ============================================================
+            // THEME TOGGLE
+            // ============================================================
+
+            function initTheme() {
+                const toggle = document.getElementById('themeToggle');
+                const icon = document.getElementById('themeIcon');
+                const stored = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored || (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+                icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+                toggle.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('theme', next);
+                    icon.textContent = next === 'dark' ? '☀️' : '🌙';
+                });
+            }
+
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+
+            function initMenu() {
+                const hamburger = document.getElementById('hamburger');
+                const navLinks = document.getElementById('navLinks');
+
+                hamburger.addEventListener('click', function() {
+                    const isOpen = navLinks.classList.toggle('open');
+                    this.classList.toggle('active');
+                    this.setAttribute('aria-expanded', isOpen);
+                });
+
+                navLinks.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('open');
+                        hamburger.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+
+            // ============================================================
+            // NAVBAR SCROLL
+            // ============================================================
+
+            function initNavbarScroll() {
+                const navbar = document.getElementById('navbar');
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 20) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                });
+            }
+
+            // ============================================================
+            // INIT
+            // ============================================================
+
+            document.addEventListener('DOMContentLoaded', function() {
+                initTheme();
+                initMenu();
+                initNavbarScroll();
+
+                // Trigger initial QR generation with placeholder? No, wait for user.
+                // Set initial color for dark mode awareness
+                const updateColor = () => {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    // QR color default
+                    if (!qrColor.value || qrColor.value === '#0b1a33') {
+                        qrColor.value = isDark ? '#f0f4ff' : '#0b1a33';
+                    }
+                    if (!barcodeColor.value || barcodeColor.value === '#0b1a33') {
+                        barcodeColor.value = isDark ? '#f0f4ff' : '#0b1a33';
+                    }
+                };
+                // Observe theme changes
+                const observer = new MutationObserver(() => updateColor());
+                observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+                updateColor();
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
