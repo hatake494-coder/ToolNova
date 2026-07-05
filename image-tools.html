@@ -50,7 +50,7 @@
         }
     </script>
 
-    <!-- Import Map for @imgly/background-removal (fixed URL) -->
+    <!-- Import Map for @imgly/background-removal (fixed) -->
     <script type="importmap">
         {
             "imports": {
@@ -1531,17 +1531,40 @@
 
     <script type="module">
         // ================================================================
-        // DYNAMIC IMPORT FOR AI BACKGROUND REMOVAL (with fallback)
+        // FIXED: DYNAMIC IMPORT FOR AI BACKGROUND REMOVAL (with robust fallback)
         // ================================================================
         let removeBackground = null;
         let bgLibraryLoaded = false;
         let bgLibraryError = null;
+        let bgLibraryLoading = false;
 
         async function loadBackgroundRemovalLibrary() {
+            if (bgLibraryLoaded) return true;
+            if (bgLibraryLoading) {
+                // Wait for the ongoing load
+                return new Promise((resolve) => {
+                    const check = () => {
+                        if (bgLibraryLoaded) resolve(true);
+                        else if (bgLibraryError) resolve(false);
+                        else setTimeout(check, 200);
+                    };
+                    check();
+                });
+            }
+            bgLibraryLoading = true;
+
+            // List of possible CDN URLs to try
+            const urls = [
+                'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.0/dist/background-removal.esm.js',
+                'https://unpkg.com/@imgly/background-removal@1.4.0/dist/background-removal.esm.js',
+                // fallback to a known working version
+                'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.3.0/dist/background-removal.esm.js'
+            ];
+
+            // First, try the import map (which uses the first URL)
             try {
-                // First attempt: use the import map
                 const module = await import('@imgly/background-removal');
-                // The library exports a default function or named exports
+                // The library exports a default function or a named export
                 if (typeof module === 'function') {
                     removeBackground = module;
                 } else if (module.default && typeof module.default === 'function') {
@@ -1549,7 +1572,7 @@
                 } else if (module.removeBackground && typeof module.removeBackground === 'function') {
                     removeBackground = module.removeBackground;
                 } else {
-                    // Try to find any function in the module
+                    // Search for any function in the module
                     const keys = Object.keys(module);
                     for (const key of keys) {
                         if (typeof module[key] === 'function') {
@@ -1558,47 +1581,49 @@
                         }
                     }
                 }
-                if (!removeBackground) {
-                    throw new Error('Could not find removeBackground function in module');
+                if (removeBackground) {
+                    bgLibraryLoaded = true;
+                    bgLibraryLoading = false;
+                    console.log('✅ Background removal library loaded via import map');
+                    return true;
                 }
-                bgLibraryLoaded = true;
-                console.log('✅ Background removal library loaded successfully');
-                return true;
+                throw new Error('Could not find removeBackground function in module');
             } catch (err) {
-                console.warn('⚠️ Failed to load background removal library via import map:', err);
-                bgLibraryError = err;
-
-                // Try fallback: load from a different CDN using dynamic import with direct URL
-                try {
-                    const fallbackUrl =
-                        'https://unpkg.com/@imgly/background-removal@1.4.0/dist/background-removal.esm.js';
-                    const module = await import(fallbackUrl);
-                    if (typeof module === 'function') {
-                        removeBackground = module;
-                    } else if (module.default && typeof module.default === 'function') {
-                        removeBackground = module.default;
-                    } else if (module.removeBackground && typeof module.removeBackground === 'function') {
-                        removeBackground = module.removeBackground;
-                    } else {
-                        const keys = Object.keys(module);
-                        for (const key of keys) {
-                            if (typeof module[key] === 'function') {
-                                removeBackground = module[key];
-                                break;
+                console.warn('⚠️ Import map failed, trying direct URLs:', err);
+                // Try direct URLs
+                for (const url of urls) {
+                    try {
+                        const module = await import(url);
+                        if (typeof module === 'function') {
+                            removeBackground = module;
+                        } else if (module.default && typeof module.default === 'function') {
+                            removeBackground = module.default;
+                        } else if (module.removeBackground && typeof module.removeBackground === 'function') {
+                            removeBackground = module.removeBackground;
+                        } else {
+                            const keys = Object.keys(module);
+                            for (const key of keys) {
+                                if (typeof module[key] === 'function') {
+                                    removeBackground = module[key];
+                                    break;
+                                }
                             }
                         }
+                        if (removeBackground) {
+                            bgLibraryLoaded = true;
+                            bgLibraryLoading = false;
+                            console.log(`✅ Background removal library loaded from ${url}`);
+                            return true;
+                        }
+                    } catch (e) {
+                        console.warn(`❌ Failed to load from ${url}:`, e);
+                        continue;
                     }
-                    if (removeBackground) {
-                        bgLibraryLoaded = true;
-                        console.log('✅ Background removal library loaded via fallback');
-                        return true;
-                    }
-                    throw new Error('Fallback module did not contain a removeBackground function');
-                } catch (fallbackErr) {
-                    console.error('❌ Fallback also failed:', fallbackErr);
-                    bgLibraryError = fallbackErr;
-                    return false;
                 }
+                // All attempts failed
+                bgLibraryError = new Error('All CDN attempts failed');
+                bgLibraryLoading = false;
+                return false;
             }
         }
 
@@ -1734,7 +1759,7 @@
         }
 
         // ================================================================
-        // TAB SWITCHING (fixed: single handler, clean state)
+        // TAB SWITCHING (fixed: clean and robust)
         // ================================================================
         const tabButtons = document.querySelectorAll('#toolTabs .tab-btn');
         const tabPanels = {
@@ -1759,21 +1784,17 @@
 
             activeTab = tabId;
 
-            // Re-initialize the watermark canvas if switching to watermark tab
-            // This ensures the canvas is properly set up
-            if (tabId === 'watermark' && state.wm.originalData && !wmCanvas) {
-                // The canvas should already be in the DOM, but we might need to re-setup
-                // events if they were lost. We'll let the existing setup handle it.
-                // The handleWmFile function already sets up the canvas and events.
-                // If the image was already loaded, we need to re-attach events.
+            // If switching to watermark and there is an image loaded, ensure canvas events are attached
+            if (tabId === 'watermark' && state.wm.originalData) {
                 const canvas = wmOriginalWrap.querySelector('canvas');
-                if (canvas) {
+                if (canvas && !canvas._listenersAttached) {
+                    // Re-setup events (but avoid duplicate listeners)
                     setupWmCanvasEvents(canvas);
                 }
             }
         }
 
-        // Attach tab switching with cleanup to prevent duplicate listeners
+        // Attach tab switching (single handler)
         tabButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tabId = btn.dataset.tab;
@@ -1833,7 +1854,7 @@
         }
 
         // ================================================================
-        // BACKGROUND TAB LOGIC (AI)
+        // BACKGROUND TAB LOGIC (AI) - unchanged algorithm, only fixed loading
         // ================================================================
 
         function handleBgFile(file) {
@@ -1905,7 +1926,7 @@
             state.bg.isProcessing = true;
             removeBgBtn.disabled = true;
 
-            // Check if library is loaded
+            // Ensure the library is loaded
             if (!bgLibraryLoaded) {
                 showLoading(true, 'Loading AI library...', 5);
                 const loaded = await loadBackgroundRemovalLibrary();
@@ -1923,7 +1944,6 @@
                 const response = await fetch(state.bg.originalData.url);
                 const imageBlob = await response.blob();
 
-                // Use the removeBackground function
                 const resultBlob = await removeBackground(imageBlob, {
                     progress: (progress) => {
                         const pct = Math.round(progress * 90);
@@ -1996,7 +2016,7 @@
         }
 
         // ================================================================
-        // LOGO REMOVER (Complete, independent)
+        // LOGO REMOVER (COMPLETE, UNCHANGED ALGORITHM)
         // ================================================================
 
         let wmCanvas = null;
@@ -2009,7 +2029,7 @@
         let wmProcessingResized = false;
         let wmIsInitialized = false;
 
-        // ----- Detection engine -----
+        // ----- Detection engine (unchanged) -----
         function isSkinColor(r, g, b) {
             const y = 0.299 * r + 0.587 * g + 0.114 * b;
             const cb = 128 + (-0.168736 * r - 0.331264 * g + 0.5 * b);
@@ -2224,7 +2244,7 @@
             return dilated;
         }
 
-        // ----- Inpainting -----
+        // ----- Inpainting (unchanged) -----
         function inpaintImageOptimized(imageData, mask, patchSize, onProgress) {
             const data = imageData.data;
             const width = imageData.width;
@@ -2393,7 +2413,7 @@
             return smoothed;
         }
 
-        // ----- WM UI Functions -----
+        // ----- WM UI Functions (unchanged algorithm) -----
         function handleWmFile(file) {
             if (!file) return;
             const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
@@ -2539,29 +2559,26 @@
         }
 
         function setupWmCanvasEvents(canvas) {
-            // Remove old listeners by cloning
-            const newCanvas = canvas.cloneNode(true);
-            canvas.parentNode.replaceChild(newCanvas, canvas);
-            wmCanvas = newCanvas;
-            wmCtx = newCanvas.getContext('2d');
+            // Mark that listeners are attached to avoid duplication
+            if (canvas._listenersAttached) return;
 
-            const img = new Image();
-            img.onload = () => {
-                wmCtx.drawImage(img, 0, 0);
-                const imageData = wmCtx.getImageData(0, 0, wmCanvas.width, wmCanvas.height);
-                wmImageData = imageData;
-                wmOriginalImageData = new Uint8ClampedArray(imageData.data);
-                wmMask = new Uint8Array(wmCanvas.width * wmCanvas.height);
-                if (state.wm.mode === 'auto' && state.wm.autoDetected) {
-                    drawMaskOverlay();
-                }
-            };
-            img.src = wmCanvas.dataset.originalData || state.wm.originalData.url;
+            // Clone to remove old listeners (if any) - but we want to keep the canvas reference
+            // Instead of cloning, we'll remove existing listeners by replacing with new ones
+            // But we need to keep the same canvas object to preserve the image data.
+            // We'll just detach all existing listeners by removing and re-adding them.
+            // However, we don't have reference to old listeners. We'll use the approach of
+            // replacing the canvas with a clone only if it's not the first time.
+            // Since we call this only when switching tabs and the canvas is already set up,
+            // we can safely re-attach events by first removing all listeners via a new canvas.
+            // But we want to preserve the canvas content. Let's use a different approach:
+            // We'll use a flag to know if events are already attached.
+            if (canvas._listenersAttached) return;
+            canvas._listenersAttached = true;
 
             const mode = state.wm.mode || 'rectangle';
-            if (mode === 'rectangle') setupRectMode(newCanvas);
-            else if (mode === 'brush') setupBrushMode(newCanvas);
-            else if (mode === 'auto') setupAutoMode(newCanvas);
+            if (mode === 'rectangle') setupRectMode(canvas);
+            else if (mode === 'brush') setupBrushMode(canvas);
+            else if (mode === 'auto') setupAutoMode(canvas);
         }
 
         function setupRectMode(canvas) {
@@ -3038,7 +3055,7 @@
             if (e.dataTransfer.files.length > 0) handleWmFile(e.dataTransfer.files[0]);
         });
 
-        // Mode selector - clean up listeners
+        // Mode selector - ensure single listener attachment
         let modeListenersAttached = false;
 
         function attachModeListeners() {
@@ -3060,24 +3077,19 @@
                     wmRect = null;
 
                     if (wmCanvas) {
-                        const parent = wmCanvas.parentNode;
-                        const newCanvas = wmCanvas.cloneNode(true);
-                        parent.replaceChild(newCanvas, wmCanvas);
-                        wmCanvas = newCanvas;
-                        wmCtx = newCanvas.getContext('2d');
-
+                        // Reset listeners flag so we can reattach
+                        wmCanvas._listenersAttached = false;
+                        // Re-setup events on the existing canvas (without cloning)
+                        setupWmCanvasEvents(wmCanvas);
+                        // Redraw original
                         const img = new Image();
                         img.onload = () => {
                             wmCtx.drawImage(img, 0, 0);
                             wmImageData = wmCtx.getImageData(0, 0, wmCanvas.width, wmCanvas.height);
                             wmOriginalImageData = new Uint8ClampedArray(wmImageData.data);
-                            wmCanvas.dataset.originalData = img.src;
-                            if (mode === 'rectangle') { setupRectMode(wmCanvas);
-                                updateHintWm('▭ Drag to draw a rectangle around the logo'); } else if (mode ===
-                                    'brush') { setupBrushMode(wmCanvas);
-                                updateHintWm('✏️ Paint over the logo to mark it'); } else if (mode === 'auto') {
-                                setupAutoMode(wmCanvas);
-                                setTimeout(() => runAutoDetectionEnhanced(wmCanvas), 200); }
+                            if (mode === 'auto') {
+                                runAutoDetectionEnhanced(wmCanvas);
+                            }
                         };
                         img.src = wmCanvas.dataset.originalData || state.wm.originalData.url;
                     }
