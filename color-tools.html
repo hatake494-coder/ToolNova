@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Color Tools - Color Picker, Converter & Generator | ToolNova</title>
+    <title>Color Tools - Color Picker, Converter & Generator | ToolFusion</title>
     <meta name="description" content="Free online color tools: color picker, HEX/RGB/HSL converter, random color generator, and color history. Perfect for designers and developers." />
-    <link rel="canonical" href="https://toolnova.com/color-tools.html" />
+    <link rel="canonical" href="https://toolfusion.com/color-tools.html" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Color Tools - Color Picker, Converter & Generator | ToolNova" />
+    <meta property="og:title" content="Color Tools - Color Picker, Converter & Generator | ToolFusion" />
     <meta property="og:description" content="Free online color tools: color picker, HEX/RGB/HSL converter, random color generator, and color history." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://toolnova.com/color-tools.html" />
-    <meta property="og:image" content="https://toolnova.com/og-image.jpg" />
-    <meta property="og:site_name" content="ToolNova" />
+    <meta property="og:url" content="https://toolfusion.com/color-tools.html" />
+    <meta property="og:image" content="https://toolfusion.com/og-image.jpg" />
+    <meta property="og:site_name" content="ToolFusion" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Color Tools - Color Picker, Converter & Generator | ToolNova" />
+    <meta name="twitter:title" content="Color Tools - Color Picker, Converter & Generator | ToolFusion" />
     <meta name="twitter:description" content="Free online color tools: color picker, HEX/RGB/HSL converter, random color generator, and color history." />
-    <meta name="twitter:image" content="https://toolnova.com/twitter-image.jpg" />
+    <meta name="twitter:image" content="https://toolfusion.com/twitter-image.jpg" />
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "ToolNova Color Tools",
-            "url": "https://toolnova.com/color-tools.html",
+            "name": "ToolFusion Color Tools",
+            "url": "https://toolfusion.com/color-tools.html",
             "description": "Free online color tools including color picker, HEX/RGB/HSL converter, random color generator, and color history.",
             "applicationCategory": "Utility",
             "operatingSystem": "All",
@@ -44,8 +44,8 @@
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolnova.com/" },
-                { "@type": "ListItem", "position": 2, "name": "Color Tools", "item": "https://toolnova.com/color-tools.html" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolfusion.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Color Tools", "item": "https://toolfusion.com/color-tools.html" }
             ]
         }
     </script>
@@ -1118,7 +1118,7 @@
     <!-- ===== NAVBAR ===== -->
     <header class="navbar" id="navbar" role="banner">
         <div class="container">
-            <a href="/" class="logo" aria-label="ToolNova home">Tool<span>Nova</span></a>
+            <a href="/" class="logo" aria-label="ToolFusion home">Tool<span>Fusion</span></a>
             <ul class="nav-links" id="navLinks" role="menubar">
                 <li role="none"><a href="/" role="menuitem">Home</a></li>
                 <li role="none"><a href="/#tools" role="menuitem">Tools</a></li>
@@ -1302,7 +1302,7 @@
             <div class="container">
                 <div class="section-header">
                     <h2>🛠️ More Free Tools</h2>
-                    <p>Explore other useful tools from ToolNova</p>
+                    <p>Explore other useful tools from ToolFusion</p>
                 </div>
                 <div class="related-grid">
                     <a href="/image-compressor.html" class="related-card">
@@ -1346,7 +1346,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="/" class="logo">Tool<span>Nova</span></a>
+                    <a href="/" class="logo">Tool<span>Fusion</span></a>
                     <p>100% free online tools for students, professionals, developers, and designers.</p>
                     <div class="footer-social">
                         <a href="#" aria-label="Twitter" title="Twitter">🐦</a>
@@ -1382,7 +1382,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                &copy; 2026 ToolNova. All rights reserved.
+                &copy; 2026 ToolFusion. All rights reserved.
             </div>
         </div>
     </footer>
@@ -1395,7 +1395,7 @@
         // STATE
         // ================================================================
         const state = {
-            recentColors: JSON.parse(localStorage.getItem('toolnova_recent_colors') || '[]'),
+            recentColors: JSON.parse(localStorage.getItem('toolfusion_recent_colors') || '[]'),
             currentColor: '#2563eb',
         };
 
@@ -1645,7 +1645,7 @@
             state.recentColors = state.recentColors.filter(c => c !== hex);
             state.recentColors.unshift(hex);
             if (state.recentColors.length > 10) state.recentColors.pop();
-            localStorage.setItem('toolnova_recent_colors', JSON.stringify(state.recentColors));
+            localStorage.setItem('toolfusion_recent_colors', JSON.stringify(state.recentColors));
             renderRecentColors();
         }
 
@@ -1673,7 +1673,7 @@
 
         function clearRecentColors() {
             state.recentColors = [];
-            localStorage.setItem('toolnova_recent_colors', JSON.stringify(state.recentColors));
+            localStorage.setItem('toolfusion_recent_colors', JSON.stringify(state.recentColors));
             renderRecentColors();
             showToast('Recent colors cleared');
         }
